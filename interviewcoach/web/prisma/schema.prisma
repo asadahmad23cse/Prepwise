@@ -1,0 +1,424 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum ExperienceLevel {
+  ENTRY
+  MID
+  SENIOR
+  STAFF
+  EXECUTIVE
+}
+
+enum InterviewType {
+  BEHAVIORAL
+  TECHNICAL
+  SYSTEM_DESIGN
+  MIXED
+}
+
+enum SessionStatus {
+  SETUP
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum QuestionType {
+  BEHAVIORAL
+  TECHNICAL
+  SITUATIONAL
+  SYSTEM_DESIGN
+  GENERAL
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+enum CreditAction {
+  GRANT
+  PURCHASE
+  DEDUCT
+  REFUND
+  EXPIRE
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ─── Core Entities ───────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  avatarUrl String?
+  role      UserRole @default(USER)
+
+  targetRole      String?
+  interviewType   InterviewType?
+  experienceLevel ExperienceLevel?
+  onboardingDone  Boolean          @default(false)
+
+  creditBalance Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subscriptions     Subscription[]
+  creditLedger      CreditLedger[]
+  resumes           Resume[]
+  jobDescriptions   JobDescription[]
+  interviewSessions InterviewSession[]
+  supportTickets    SupportTicket[]
+  invoices          Invoice[]
+  auditLogs         AuditLog[]
+
+  @@index([clerkId])
+  @@index([email])
+}
+
+model Plan {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  active      Boolean @default(true)
+
+  priceMonthly  Int
+  priceAnnual   Int
+  stripePriceIdMonthly String?
+  stripePriceIdAnnual  String?
+
+  sessionsPerMonth  Int    @default(10)
+  resumeBuilds      Int    @default(5)
+  creditsIncluded   Int    @default(0)
+  features          Json   @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subscriptions Subscription[]
+
+  @@index([slug])
+}
+
+model Subscription {
+  id     String @id @default(cuid())
+  userId String
+  planId String
+
+  stripeSubscriptionId String?  @unique
+  stripeCustomerId     String?
+  status               SubscriptionStatus @default(TRIALING)
+
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  trialEnd           DateTime?
+  cancelledAt        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan Plan @relation(fields: [planId], references: [id])
+
+  @@index([userId])
+  @@index([stripeSubscriptionId])
+}
+
+model CreditLedger {
+  id     String @id @default(cuid())
+  userId String
+
+  action      CreditAction
+  amount      Int
+  balance     Int
+  description String?
+  referenceId String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// ─── Resume & JD ─────────────────────────────────────────
+
+model Resume {
+  id     String @id @default(cuid())
+  userId String
+
+  title    String   @default("Untitled Resume")
+  fileName String
+  fileUrl  String
+  fileSize Int
+
+  parsedData Json?
+  atsScore   Int?
+  version    Int  @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model JobDescription {
+  id     String @id @default(cuid())
+  userId String
+
+  title       String
+  company     String?
+  rawText     String
+  analyzedData Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interviewSessions InterviewSession[]
+
+  @@index([userId])
+}
+
+// ─── Interview Session ───────────────────────────────────
+
+model InterviewSession {
+  id     String @id @default(cuid())
+  userId String
+
+  jobDescriptionId String?
+  templateId       String?
+
+  title         String?
+  interviewType InterviewType    @default(MIXED)
+  targetRole    String?
+  targetCompany String?
+  status        SessionStatus    @default(SETUP)
+
+  startedAt  DateTime?
+  endedAt    DateTime?
+  durationMs Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobDescription JobDescription?  @relation(fields: [jobDescriptionId], references: [id])
+  template       PracticeTemplate? @relation(fields: [templateId], references: [id])
+
+  transcriptChunks  TranscriptChunk[]
+  detectedQuestions DetectedQuestion[]
+  feedback          CoachingFeedback?
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model TranscriptChunk {
+  id        String @id @default(cuid())
+  sessionId String
+
+  sequence  Int
+  text      String
+  speaker   String   @default("user")
+  startMs   Int
+  endMs     Int
+  confidence Float?
+
+  createdAt DateTime @default(now())
+
+  session InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([sessionId, sequence])
+}
+
+model DetectedQuestion {
+  id        String @id @default(cuid())
+  sessionId String
+
+  text         String
+  questionType QuestionType
+  detectedAtMs Int
+  confidence   Float?
+
+  createdAt DateTime @default(now())
+
+  session          InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  suggestedAnswers SuggestedAnswer[]
+
+  @@index([sessionId])
+}
+
+model SuggestedAnswer {
+  id         String @id @default(cuid())
+  questionId String
+
+  framework   String
+  keyPoints   Json
+  hints       Json?
+  fullText    String?
+
+  createdAt DateTime @default(now())
+
+  question DetectedQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
+}
+
+model CoachingFeedback {
+  id        String @id @default(cuid())
+  sessionId String @unique
+
+  clarityScore     Float?
+  relevanceScore   Float?
+  confidenceScore  Float?
+  structureScore   Float?
+  concisenessScore Float?
+  overallScore     Float?
+
+  fillerWords     Json?
+  pacingWpm       Float?
+  suggestions     Json?
+  detailedReport  Json?
+
+  createdAt DateTime @default(now())
+
+  session InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+// ─── Templates ───────────────────────────────────────────
+
+model PracticeTemplate {
+  id String @id @default(cuid())
+
+  title         String
+  description   String?
+  targetRole    String?
+  interviewType InterviewType @default(MIXED)
+  difficulty    String?
+  questions     Json
+  isSystem      Boolean       @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions InterviewSession[]
+
+  @@index([targetRole])
+  @@index([interviewType])
+}
+
+// ─── Billing ─────────────────────────────────────────────
+
+model Invoice {
+  id     String @id @default(cuid())
+  userId String
+
+  stripeInvoiceId String? @unique
+  amountCents     Int
+  currency        String  @default("usd")
+  status          String
+  pdfUrl          String?
+  description     String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── Support ─────────────────────────────────────────────
+
+model SupportTicket {
+  id     String @id @default(cuid())
+  userId String
+
+  subject  String
+  body     String
+  status   TicketStatus   @default(OPEN)
+  priority TicketPriority @default(MEDIUM)
+
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
+// ─── System ──────────────────────────────────────────────
+
+model FeatureFlag {
+  id   String @id @default(cuid())
+  key  String @unique
+  name String
+
+  enabled     Boolean @default(false)
+  description String?
+  metadata    Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
+
+model AuditLog {
+  id     String  @id @default(cuid())
+  userId String?
+
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  ipAddress String?
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}

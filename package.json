@@ -1,0 +1,42 @@
+{
+  "name": "systemhost",
+  "productName": "SystemHost",
+  "version": "1.0.0",
+  "description": "System background service",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.system.host",
+    "productName": "SystemHost",
+    "win": {
+      "executableName": "SystemHost",
+      "requestedExecutionLevel": "requireAdministrator",
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "**/*",
+      "!node_modules/electron-builder/**",
+      "!*.md"
+    ]
+  },
+  "dependencies": {
+    "koffi": "^2.8.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}
