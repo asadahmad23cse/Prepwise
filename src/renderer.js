@@ -105,7 +105,7 @@ function sortByPreference(available, isVisionTask) {
   return result;
 }
 
-var SYSTEM_ACK = { role: 'model', parts: [{ text: 'Understood. I will follow all rules precisely. Ready to assist.' }] };
+var SYSTEM_ACK = { role: 'model', parts: [{ text: 'Ghost Mode active. Standing by for interview analysis. Rules acknowledged.' }] };
 var conversationHistory = [];
 
 async function callGemini(userMessage) {
