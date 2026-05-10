@@ -399,6 +399,20 @@ userInput.addEventListener('keydown', function(e) {
 sendBtn.addEventListener('click', sendMessage);
 clearBtn.addEventListener('click', clearChat);
 
+function copyToClipboard(btn) {
+  const container = btn.closest('.code-container');
+  const code = container.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
 // ========================
 // SCREEN SCAN
 // ========================
@@ -561,7 +575,17 @@ function appendMessage(role, text) {
   content.className = 'msg-content';
   var contentHtml = '';
   if (typeof marked !== 'undefined') {
-    contentHtml = marked.parse(text);
+    // Custom renderer for code blocks to add copy buttons
+    const renderer = new marked.Renderer();
+    const originalCode = renderer.code.bind(renderer);
+    renderer.code = (code, language, escaped) => {
+      const html = originalCode(code, language, escaped);
+      return `<div class="code-container">
+                <button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>
+                ${html}
+              </div>`;
+    };
+    contentHtml = marked.parse(text, { renderer });
   } else {
     var escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     contentHtml = escaped

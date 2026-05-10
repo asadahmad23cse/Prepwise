@@ -517,6 +517,38 @@ kbd {
   border: 1px solid var(--border);
   margin: 10px 0;
   overflow-x: auto;
+  position: relative;
+}
+
+.code-container {
+  position: relative;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 10px;
+  padding: 2px 8px;
+  cursor: none;
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.copy-code-btn:hover {
+  background: var(--accent-purple);
+  color: white;
+  border-color: var(--accent-purple);
+}
+
+.copy-code-btn.copied {
+  background: var(--accent-green);
+  color: white;
+  border-color: var(--accent-green);
 }
 .msg-content code {
   font-family: 'Cascadia Code', 'Fira Code', monospace;
