@@ -55,6 +55,16 @@ function doFetch(url, body) {
 
 // Call ListModels to discover what models are actually available for this key
 async function listAvailableModels(key) {
+  var cached = localStorage.getItem('ghost_models_cache');
+  if (cached) {
+    try {
+      var parsed = JSON.parse(cached);
+      if (parsed.key === key && (Date.now() - parsed.ts < 3600000)) {
+        return parsed.data;
+      }
+    } catch(e) {}
+  }
+
   var tries = ['v1beta', 'v1'];
   for (var i = 0; i < tries.length; i++) {
     try {
@@ -65,8 +75,9 @@ async function listAvailableModels(key) {
           .filter(function(m) { return m.supportedGenerationMethods && m.supportedGenerationMethods.indexOf('generateContent') !== -1; })
           .map(function(m) { return m.name.replace('models/', ''); });
         if (models.length > 0) {
-          console.log('[Gemini] Models available:', models);
-          return { models: models, version: tries[i] };
+          var result = { models: models, version: tries[i] };
+          localStorage.setItem('ghost_models_cache', JSON.stringify({ key: key, ts: Date.now(), data: result }));
+          return result;
         }
       }
     } catch (e) { /* ignore */ }
@@ -352,6 +363,7 @@ saveKeyBtn.addEventListener('click', function() {
   if (!key) { setApiStatus('Please enter an API key', 'err'); return; }
   if (key.length < 20) { setApiStatus('Key too short — paste full key', 'err'); return; }
   localStorage.removeItem('ghost_gemini_key');
+  localStorage.removeItem('ghost_models_cache');
   detectedModel = null;
   conversationHistory = [];
   geminiApiKey = key;
