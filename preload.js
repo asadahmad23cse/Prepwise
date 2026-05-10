@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getStealthStatus: () => ipcRenderer.invoke('get-stealth-status'),
   onStealthStatus: (callback) => ipcRenderer.on('stealth-status', (event, data) => callback(data)),
   onClickthroughChanged: (callback) => ipcRenderer.on('clickthrough-changed', (event, val) => callback(val)),
+  onVisibilityChanged: (callback) => ipcRenderer.on('visibility-changed', (event, val) => callback(val)),
 
   // Window control
   setOpacity: (value) => ipcRenderer.send('set-opacity', value),

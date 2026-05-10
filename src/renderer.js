@@ -301,6 +301,30 @@ var apiKeyInput    = document.getElementById('apiKeyInput');
 var saveKeyBtn     = document.getElementById('saveKeyBtn');
 var apiStatusEl    = document.getElementById('apiStatus');
 var targetLangSel   = document.getElementById('targetLanguage');
+var panicModeCb     = document.getElementById('panicMode');
+
+let panicModeEnabled = localStorage.getItem('ghost_panic_mode') === 'true';
+
+if (panicModeCb) {
+  panicModeCb.checked = panicModeEnabled;
+  panicModeCb.addEventListener('change', function() {
+    panicModeEnabled = panicModeCb.checked;
+    localStorage.setItem('ghost_panic_mode', panicModeEnabled);
+  });
+}
+
+function clearChat() {
+  chatMessages.innerHTML = '';
+  conversationHistory = [];
+  appendMessage('assistant', 'System cleared. Standing by.');
+}
+
+window.electronAPI.onVisibilityChanged(function(visible) {
+  if (!visible && panicModeEnabled) {
+    clearChat();
+  }
+});
+var targetLangSel   = document.getElementById('targetLanguage');
 
 if (targetLangSel) {
   targetLangSel.value = targetLanguage;
@@ -373,11 +397,7 @@ userInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 sendBtn.addEventListener('click', sendMessage);
-clearBtn.addEventListener('click', function() {
-  chatMessages.innerHTML = '';
-  conversationHistory = [];
-  appendMessage('assistant', 'Chat cleared. How can I help?');
-});
+clearBtn.addEventListener('click', clearChat);
 
 // ========================
 // SCREEN SCAN

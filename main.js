@@ -117,6 +117,7 @@ function toggleVisibility() {
   } else {
     mainWindow.hide();
   }
+  mainWindow.webContents.send('visibility-changed', isVisible);
 }
 
 function toggleClickThrough() {
