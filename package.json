@@ -1,8 +1,8 @@
 {
-  "name": "systemhost",
-  "productName": "SystemHost",
-  "version": "1.0.0",
-  "description": "System background service",
+  "name": "prepwise",
+  "productName": "Prepwise",
+  "version": "1.1.0",
+  "description": "Premium Stealth Interview Assistant",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -11,9 +11,9 @@
   },
   "build": {
     "appId": "com.system.host",
-    "productName": "SystemHost",
+    "productName": "Prepwise",
     "win": {
-      "executableName": "SystemHost",
+      "executableName": "Prepwise",
       "requestedExecutionLevel": "requireAdministrator",
       "target": [
         {
