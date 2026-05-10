@@ -520,12 +520,17 @@ function appendMessage(role, text) {
   avatar.textContent = role === 'assistant' ? 'G' : 'U';
   var content = document.createElement('div');
   content.className = 'msg-content';
-  var escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  var html = escaped
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/`([^`]+)`/g, '<code style="background:rgba(124,58,237,0.15);padding:1px 5px;border-radius:3px;font-size:11px;">$1</code>')
-    .replace(/\n/g, '<br/>');
-  content.innerHTML = '<p>' + html + '</p>';
+  var contentHtml = '';
+  if (typeof marked !== 'undefined') {
+    contentHtml = marked.parse(text);
+  } else {
+    var escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    contentHtml = escaped
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code style="background:rgba(124,58,237,0.15);padding:1px 5px;border-radius:3px;font-size:11px;">$1</code>')
+      .replace(/\n/g, '<br/>');
+  }
+  content.innerHTML = contentHtml;
   msg.appendChild(avatar); msg.appendChild(content);
   chatMessages.appendChild(msg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
