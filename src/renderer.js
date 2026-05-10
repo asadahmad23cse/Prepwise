@@ -13,6 +13,17 @@ var PREFERRED_MODELS = [
   'gemini-1.0-pro',   'gemini-pro',
 ];
 
+let targetLanguage = localStorage.getItem('ghost_target_lang') || 'C++';
+
+function updateSystemPrompt() {
+  SYSTEM_PROMPT = 'You are Prepwise, a stealth AI assistant for live coding interviews.\nWhen you see a coding problem, respond in this EXACT format only:\n\nApproach: [name] | Time: O(...) | Space: O(...)\n\n[clean working code, no extra explanation]\n\nKey steps:\n- [point 1]\n- [point 2]\n- [point 3]\n\nNothing else. No greetings. No "Here is". No long paragraphs.\nIf a screenshot is provided, solve THAT problem only.\nTarget language: ' + targetLanguage + '.\nCode must be compilable and optimal.';
+  SYSTEM_MESSAGE = { role: 'user', parts: [{ text: SYSTEM_PROMPT }] };
+}
+
+var SYSTEM_PROMPT = '';
+var SYSTEM_MESSAGE = {};
+updateSystemPrompt();
+
 function makeEndpoint(version, model, key) {
   return 'https://generativelanguage.googleapis.com/' + version + '/models/' + model + ':generateContent?key=' + key;
 }
@@ -83,9 +94,6 @@ function sortByPreference(available, isVisionTask) {
   return result;
 }
 
-var SYSTEM_PROMPT = 'You are a stealth AI assistant in a live coding interview.\nWhen you see a coding problem, respond in this EXACT format only:\n\nApproach: [name] | Time: O(...) | Space: O(...)\n\n[clean working code, no extra explanation]\n\nKey steps:\n- [point 1]\n- [point 2]\n- [point 3]\n\nNothing else. No greetings. No "Here is". No long paragraphs.\nIf a screenshot is provided, solve THAT problem only — do not solve any other problem.\nDefault language: C++ unless user specifies otherwise.\nCode must be compilable and optimal.';
-
-var SYSTEM_MESSAGE = { role: 'user', parts: [{ text: SYSTEM_PROMPT }] };
 var SYSTEM_ACK = { role: 'model', parts: [{ text: 'Understood. I will follow all rules precisely. Ready to assist.' }] };
 var conversationHistory = [];
 
@@ -292,6 +300,17 @@ var customCursorCb = document.getElementById('customCursor');
 var apiKeyInput    = document.getElementById('apiKeyInput');
 var saveKeyBtn     = document.getElementById('saveKeyBtn');
 var apiStatusEl    = document.getElementById('apiStatus');
+var targetLangSel   = document.getElementById('targetLanguage');
+
+if (targetLangSel) {
+  targetLangSel.value = targetLanguage;
+  targetLangSel.addEventListener('change', function() {
+    targetLanguage = targetLangSel.value;
+    localStorage.setItem('ghost_target_lang', targetLanguage);
+    updateSystemPrompt();
+    appendMessage('assistant', 'Target language set to **' + targetLanguage + '**. Responses will now be in ' + targetLanguage + '.');
+  });
+}
 
 if (geminiApiKey && apiKeyInput) {
   apiKeyInput.value = geminiApiKey;

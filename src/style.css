@@ -721,6 +721,23 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 
 .save-key-btn:hover { opacity: 0.85; }
 
+.select-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px 8px;
+  font-family: var(--font);
+  font-size: 11px;
+  color: var(--text-primary);
+  outline: none;
+  cursor: none;
+  transition: border-color 0.2s;
+}
+
+.select-input:focus {
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
 .api-status {
   font-size: 10px;
   margin-bottom: 10px;
