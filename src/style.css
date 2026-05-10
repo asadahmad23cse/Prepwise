@@ -12,33 +12,33 @@
 }
 
 :root {
-  --bg-base: #0a0a0f;
-  --bg-glass: rgba(18, 18, 30, 0.85);
-  --bg-panel: rgba(25, 25, 45, 0.7);
-  --bg-input: rgba(30, 30, 55, 0.8);
-  --bg-hover: rgba(90, 60, 200, 0.15);
+  --bg-base: #020617;
+  --bg-glass: rgba(15, 23, 42, 0.85);
+  --bg-panel: rgba(30, 41, 59, 0.7);
+  --bg-input: rgba(15, 23, 42, 0.6);
+  --bg-hover: rgba(139, 92, 246, 0.1);
 
-  --accent-purple: #7c3aed;
+  --accent-purple: #8b5cf6;
   --accent-violet: #a78bfa;
-  --accent-cyan: #38bdf8;
+  --accent-cyan: #22d3ee;
   --accent-pink: #f472b6;
-  --accent-green: #4ade80;
+  --accent-green: #10b981;
 
-  --text-primary: #f1f5f9;
+  --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-muted: #475569;
+  --text-muted: #64748b;
 
-  --border: rgba(148, 163, 184, 0.1);
-  --border-glow: rgba(124, 58, 237, 0.4);
+  --border: rgba(148, 163, 184, 0.15);
+  --border-glow: rgba(139, 92, 246, 0.4);
 
-  --radius: 16px;
-  --radius-sm: 10px;
-  --radius-xs: 6px;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
 
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(124, 58, 237, 0.15);
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
-  --glow: 0 0 30px rgba(124, 58, 237, 0.3);
+  --font: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow: 0 25px 70px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 4px 25px rgba(0, 0, 0, 0.6);
+  --glow: 0 0 40px rgba(139, 92, 246, 0.25);
 }
 
 html, body {
@@ -114,8 +114,17 @@ html, body {
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-cyan), transparent);
-  opacity: 0.8;
+  opacity: 0.5;
   z-index: 1;
+}
+
+.app-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes fadeIn {
