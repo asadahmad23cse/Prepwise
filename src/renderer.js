@@ -531,6 +531,11 @@ function appendMessage(role, text) {
       .replace(/\n/g, '<br/>');
   }
   content.innerHTML = contentHtml;
+  
+  // Trigger Prism highlighting
+  if (typeof Prism !== 'undefined') {
+    Prism.highlightAllUnder(content);
+  }
   msg.appendChild(avatar); msg.appendChild(content);
   chatMessages.appendChild(msg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
