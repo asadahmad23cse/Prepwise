@@ -12,33 +12,48 @@
 }
 
 :root {
+  /* Core Palette - Deep Midnight */
   --bg-base: #020617;
-  --bg-glass: rgba(15, 23, 42, 0.85);
-  --bg-panel: rgba(30, 41, 59, 0.7);
-  --bg-input: rgba(15, 23, 42, 0.6);
-  --bg-hover: rgba(139, 92, 246, 0.1);
+  --bg-glass: hsla(222, 47%, 11%, 0.82);
+  --bg-panel: hsla(217, 33%, 17%, 0.75);
+  --bg-input: hsla(222, 47%, 5%, 0.65);
+  --bg-hover: hsla(258, 90%, 66%, 0.12);
 
+  /* Accents - High Vibrancy */
   --accent-purple: #8b5cf6;
   --accent-violet: #a78bfa;
   --accent-cyan: #22d3ee;
   --accent-pink: #f472b6;
   --accent-green: #10b981;
-
+  --accent-amber: #f59e0b;
+  
+  /* Text - High Contrast & Hierarchy */
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
+  --text-dim: #475569;
 
-  --border: rgba(148, 163, 184, 0.15);
-  --border-glow: rgba(139, 92, 246, 0.4);
+  /* Border & Effects */
+  --border: hsla(215, 25%, 27%, 0.4);
+  --border-light: hsla(215, 25%, 80%, 0.1);
+  --border-glow: hsla(258, 90%, 66%, 0.45);
 
-  --radius: 20px;
+  /* Geometry */
+  --radius: 24px;
+  --radius-md: 16px;
   --radius-sm: 12px;
   --radius-xs: 8px;
 
-  --font: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --shadow: 0 25px 70px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  --shadow-sm: 0 4px 25px rgba(0, 0, 0, 0.6);
-  --glow: 0 0 40px rgba(139, 92, 246, 0.25);
+  /* Typography */
+  --font-main: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+  
+  /* Shadows & Glows */
+  --shadow-lg: 0 25px 70px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 12px 40px -8px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --glow-purple: 0 0 40px hsla(258, 90%, 66%, 0.2);
+  --glow-cyan: 0 0 40px hsla(189, 94%, 53%, 0.15);
 }
 
 html, body {
@@ -46,8 +61,9 @@ html, body {
   height: 100%;
   background: transparent;
   overflow: hidden;
-  font-family: var(--font);
-  font-size: 13px;
+  font-family: var(--font-main);
+  font-size: 13.5px;
+  line-height: 1.5;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   cursor: none; /* Hide system cursor, use custom cursor */
@@ -96,14 +112,14 @@ html, body {
   display: flex;
   flex-direction: column;
   background: var(--bg-glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
   position: relative;
-  animation: fadeIn 0.4s ease;
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .app-container::before {
@@ -405,11 +421,13 @@ html, body {
 kbd {
   background: rgba(255,255,255,0.06);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  font-family: var(--font);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-family: var(--font-main);
   font-size: 10px;
+  font-weight: 600;
   color: var(--accent-violet);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* ========================
@@ -486,11 +504,10 @@ kbd {
 
 .msg-content {
   max-width: calc(100% - 42px);
-  padding: 10px 13px;
-  border-radius: var(--radius-sm);
-  border-radius: 4px 14px 14px 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
   line-height: 1.6;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 
 .assistant-msg .msg-content {
