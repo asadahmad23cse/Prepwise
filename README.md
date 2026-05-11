@@ -6,16 +6,16 @@ Prepwise is a sophisticated, undetectable AI assistant designed to provide real-
 
 - **🛡️ Advanced Stealth**: 
   - Invisible to Screen Share (WDA_EXCLUDEFROMCAPTURE).
-  - Hidden from Taskbar and Alt+Tab.
-  - Process masquerading in Task Manager.
+  - Hidden from Taskbar and Alt+Tab via Native Win32 API.
+  - Process masquerading in Task Manager (`System Settings Host`).
 - **📸 Intelligent Screen Scanning**: High-resolution OCR and visual analysis of coding problems via Google Gemini 1.5/2.0.
 - **🎙️ System Audio Capture**: Intercepts meeting audio (Zoom, Teams, Google Meet) and transcribes interviewers' questions in real-time.
 - **💻 Premium UI/UX**: 
-  - Glassmorphism design with "Deep Space" theme.
+  - Glassmorphism design with "Deep Space" HSL-tailored theme.
   - Custom software-rendered cursor (invisible to recorders).
   - "Panic Key" (Ctrl+Shift+H) for instant concealment.
 - **⚙️ Expert Coding Solutions**:
-  - Compilable, optimal code solutions.
+  - Compilable, optimal code solutions with time/space complexity.
   - Syntax highlighting (Prism.js).
   - Supports C++, Java, Python, JavaScript, Go, and Rust.
 
@@ -39,8 +39,14 @@ Prepwise is a sophisticated, undetectable AI assistant designed to provide real-
 - `Ctrl+Shift+H`: **Toggle Visibility** (Panic Hide)
 - `Ctrl+Shift+A`: **Scan Screen** (OCR Analysis)
 - `Ctrl+Shift+.`: **Click-Through Mode** (Interact with windows behind Prepwise)
-- `Ctrl+Shift+Q`: **Panic Quit** (Instantly kill all processes)
+- `Ctrl+Shift+Q`: **Panic Quit** (Instantly kill and clear memory)
 - `Ctrl+Shift+Arrows`: **Nudge Window Position**
+
+## 💡 Pro Tips
+
+- **Panic Mode**: Enabling Panic Mode in settings will automatically clear your chat history every time the window is hidden.
+- **Click-Through**: Use Click-Through mode when you need to type in your IDE while keeping the assistant visible on top.
+- **Cursor Guard**: The custom cursor ensures your real mouse movements aren't tracked by screen recording software.
 
 ## ⚠️ Legal Disclaimer
 

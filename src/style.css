@@ -148,6 +148,12 @@ html, body {
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+.ai-processing-glow {
+  box-shadow: 0 0 50px hsla(258, 90%, 66%, 0.4), var(--shadow-lg) !important;
+  border-color: var(--accent-purple) !important;
+  transition: all 0.5s ease;
+}
+
 /* ========================
    TITLE BAR
    ======================== */

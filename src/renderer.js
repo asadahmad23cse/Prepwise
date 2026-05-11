@@ -120,8 +120,28 @@ var SYSTEM_ACK = { role: 'model', parts: [{ text: 'Ghost Mode active. Standing b
 var conversationHistory = [];
 
 async function callGemini(userMessage) {
-  if (!geminiApiKey) return 'Please add your Gemini API key in Settings (gear icon).';
-  if (detectedModel) return await callWithRetry(userMessage, detectedModel);
+  const appContainer = document.getElementById('app');
+  if (appContainer) appContainer.classList.add('ai-processing-glow');
+
+  if (!geminiApiKey) {
+    if (appContainer) appContainer.classList.remove('ai-processing-glow');
+    return 'Please add your Gemini API key in Settings (gear icon).';
+  }
+  
+  if (detectedModel) {
+    const res = await callWithRetry(userMessage, detectedModel);
+    if (appContainer) appContainer.classList.remove('ai-processing-glow');
+    return res;
+  }
+
+  // STEP 1: List models actually available for this key
+  setApiStatus('Discovering models...', '');
+  var listResult = await listAvailableModels(geminiApiKey);
+  if (!listResult) {
+    if (appContainer) appContainer.classList.remove('ai-processing-glow');
+    setApiStatus('Could not reach API', 'err');
+    return 'Cannot reach Gemini API. Check your internet connection and API key.';
+  }
 
   // STEP 1: List models actually available for this key
   setApiStatus('Discovering models...', '');
