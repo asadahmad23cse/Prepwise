@@ -3,7 +3,7 @@ const path = require('path');
 const stealth = require('./stealth');
 
 // Rename process for Task Manager concealment
-process.title = 'Windows Host Service';
+process.title = 'System Settings Host';
 
 let mainWindow = null;
 let isVisible = true;
@@ -133,7 +133,11 @@ app.whenReady().then(() => {
   // Global stealth hotkeys — work even when app is hidden
   globalShortcut.register('CommandOrControl+Shift+H', toggleVisibility);
   globalShortcut.register('CommandOrControl+Shift+.', toggleClickThrough);
-  globalShortcut.register('CommandOrControl+Shift+Q', () => {
+  globalShortcut.register('CommandOrControl+Shift+Q', async () => {
+    if (mainWindow) {
+      await mainWindow.webContents.session.clearStorageData();
+      await mainWindow.webContents.session.clearCache();
+    }
     globalShortcut.unregisterAll();
     app.quit();
   });

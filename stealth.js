@@ -31,7 +31,7 @@ function loadNativeModules() {
     console.log('[Stealth] koffi loaded successfully — native Win32 APIs available');
     return true;
   } catch (e) {
-    console.warn('[Stealth] koffi not available, using Electron fallbacks only:', e.message);
+    console.warn('[Stealth] Native modules could not be initialized:', e.message);
     return false;
   }
 }
