@@ -23,6 +23,17 @@ function updateSystemPrompt() {
 var SYSTEM_PROMPT = '';
 var SYSTEM_MESSAGE = {};
 updateSystemPrompt();
+updateStatusBar();
+
+function updateStatusBar() {
+  const langBadge = document.getElementById('current-lang-badge');
+  if (langBadge) langBadge.textContent = targetLanguage;
+  
+  const aiDot = document.getElementById('ai-status-dot');
+  if (aiDot) {
+    aiDot.className = 'status-dot ' + (geminiApiKey ? 'active' : '');
+  }
+}
 
 function makeEndpoint(version, model, key) {
   return 'https://generativelanguage.googleapis.com/' + version + '/models/' + model + ':generateContent?key=' + key;
@@ -287,6 +298,15 @@ async function initStealthStatus() {
   window.electronAPI.onStealthStatus(function(data) { updateStatusDots(data); });
   var status = await window.electronAPI.getStealthStatus();
   updateStatusDots(status);
+  
+  // Simulate latency updates
+  setInterval(() => {
+    const latencyEl = document.getElementById('latency-val');
+    if (latencyEl) {
+      const lat = Math.floor(Math.random() * 20) + 15;
+      latencyEl.textContent = lat + 'ms';
+    }
+  }, 5000);
 }
 function updateStatusDots(s) {
   setDot('st-screen', s.screenShare); setDot('st-taskbar', s.taskbar);
@@ -343,6 +363,7 @@ if (targetLangSel) {
     targetLanguage = targetLangSel.value;
     localStorage.setItem('ghost_target_lang', targetLanguage);
     updateSystemPrompt();
+    updateStatusBar();
     appendMessage('assistant', 'Target language set to **' + targetLanguage + '**. Responses will now be in ' + targetLanguage + '.');
   });
 }
@@ -368,6 +389,7 @@ saveKeyBtn.addEventListener('click', function() {
   conversationHistory = [];
   geminiApiKey = key;
   localStorage.setItem('ghost_gemini_key', key);
+  updateStatusBar();
   setApiStatus('Key saved (ends ....' + key.slice(-4) + ') — send a message!', 'ok');
   appendMessage('assistant', 'New API key saved! Send any message and I will auto-discover the best model for your account.');
 });
