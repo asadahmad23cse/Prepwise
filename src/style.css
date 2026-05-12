@@ -178,7 +178,9 @@ html, body {
 .app-logo {
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan), var(--accent-pink));
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1060,3 +1062,5 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
    UTILITY
    ======================== */
 .hidden { display: none !important; }
+
+@keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
