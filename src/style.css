@@ -486,6 +486,11 @@ kbd {
 
 .msg-avatar {
   width: 28px;
+  transition: transform 0.2s ease;
+}
+.msg-avatar:hover {
+  transform: scale(1.1) rotate(5deg);
+
   height: 28px;
   border-radius: 8px;
   display: flex;
