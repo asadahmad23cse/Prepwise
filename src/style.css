@@ -62,7 +62,7 @@ html, body {
   background: transparent;
   overflow: hidden;
   font-family: var(--font-main);
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
