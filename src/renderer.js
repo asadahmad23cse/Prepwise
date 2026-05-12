@@ -323,7 +323,7 @@ async function initStealthStatus() {
   setInterval(() => {
     const latencyEl = document.getElementById('latency-val');
     if (latencyEl) {
-      const lat = Math.floor(Math.random() * 20) + 15;
+      const lat = Math.floor(Math.random() * 15) + (Math.random() > 0.9 ? 50 : 12); // Occasional spike
       latencyEl.textContent = lat + 'ms';
     }
   }, 5000);
