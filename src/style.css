@@ -1071,3 +1071,106 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .hidden { display: none !important; }
 
 @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* ========================
+   VOICE CAPTURE PANEL
+   ======================== */
+.voice-panel {
+  padding: 12px 14px;
+  background: rgba(10, 8, 25, 0.4);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.voice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.voice-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voice-icon {
+  font-size: 14px;
+  color: var(--accent-pink);
+}
+
+.voice-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.voice-status {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.voice-status-live {
+  color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  animation: pulse-green 1.5s infinite;
+}
+
+.voice-header-right {
+  display: flex;
+  gap: 6px;
+}
+
+.voice-btn {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  cursor: none;
+  transition: all 0.2s;
+}
+
+.voice-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-purple);
+}
+
+.voice-btn.active {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.voice-live-box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 11px;
+  display: flex;
+  gap: 8px;
+}
+
+.voice-live-label {
+  font-weight: 700;
+  color: var(--accent-pink);
+}
+
+.voice-live-text {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
