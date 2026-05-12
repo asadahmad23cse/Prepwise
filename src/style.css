@@ -240,6 +240,7 @@ html, body {
 .icon-btn:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
 }
 
 /* ========================
