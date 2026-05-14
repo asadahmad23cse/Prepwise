@@ -179,8 +179,8 @@ async function callGemini(userMessage) {
             continue; // Don't even wait 15s if it's a hard quota limit (0 limit)
           }
 
-          setApiStatus('Rate limited — waiting 15s...', '');
-          await sleep(15000);
+          setApiStatus('Rate limited — waiting 12s...', '');
+          await sleep(12000);
           res = await doFetch(url, body);
         }
 
@@ -367,7 +367,7 @@ if (panicModeCb) {
 function clearChat() {
   chatMessages.innerHTML = '';
   conversationHistory = [];
-  appendMessage('assistant', 'System cleared. Standing by.');
+  appendMessage('assistant', 'Memory purged. Neural link ready.');
 }
 
 window.electronAPI.onVisibilityChanged(function(visible) {
@@ -655,7 +655,7 @@ function appendMessage(role, text) {
   }
   msg.appendChild(avatar); msg.appendChild(content);
   chatMessages.appendChild(msg);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 
 function showTyping() {
@@ -663,7 +663,7 @@ function showTyping() {
   el.className = 'message assistant-msg typing-indicator';
   el.innerHTML = '<div class="msg-avatar">G</div><div class="msg-content"><div class="dots"><span></span><span></span><span></span></div></div>';
   chatMessages.appendChild(el);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  el.scrollIntoView({ behavior: 'smooth', block: 'end' });
   return el;
 }
 
