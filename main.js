@@ -133,6 +133,12 @@ app.whenReady().then(() => {
   // Global stealth hotkeys — work even when app is hidden
   globalShortcut.register('CommandOrControl+Shift+H', toggleVisibility);
   globalShortcut.register('CommandOrControl+Shift+.', toggleClickThrough);
+  globalShortcut.register('CommandOrControl+Shift+L', async () => {
+    if (mainWindow) {
+      await mainWindow.webContents.session.clearCache();
+      mainWindow.reload();
+    }
+  });
   globalShortcut.register('CommandOrControl+Shift+Q', async () => {
     if (mainWindow) {
       await mainWindow.webContents.session.clearStorageData();
@@ -207,7 +213,10 @@ ipcMain.on('hide-window', () => {
 ipcMain.on('drag-window', (event, { deltaX, deltaY }) => {
   if (!mainWindow) return;
   const [x, y] = mainWindow.getPosition();
-  mainWindow.setPosition(x + deltaX, y + deltaY);
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  const newX = Math.max(0, Math.min(x + deltaX, width - 100));
+  const newY = Math.max(0, Math.min(y + deltaY, height - 100));
+  mainWindow.setPosition(newX, newY);
 });
 
 ipcMain.on('resize-window', (event, { width, height }) => {
