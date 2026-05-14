@@ -180,7 +180,7 @@ html, body {
   height: 28px;
   background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan), var(--accent-pink));
   background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
+  animation: gradient-shift 2.5s ease infinite;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -582,6 +582,9 @@ kbd {
   color: white;
   border-color: var(--accent-green);
 }
+.copy-code-btn:active {
+  transform: scale(0.95);
+}
 .msg-content code {
   font-family: 'Cascadia Code', 'Fira Code', monospace;
   font-size: 0.9em;
@@ -597,8 +600,29 @@ kbd {
   margin-left: 20px;
   margin-bottom: 10px;
 }
+.msg-content blockquote {
+  border-left: 3px solid var(--accent-purple);
+  margin: 10px 0;
+  padding-left: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
 .msg-content li {
   margin-bottom: 4px;
+}
+.msg-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 12px;
+}
+.msg-content th, .msg-content td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 10px;
+}
+.msg-content th {
+  background: rgba(124, 58, 237, 0.15);
+  text-align: left;
 }
 
 /* Typing indicator */
@@ -846,7 +870,9 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--text-dim);
+  background: var(--text-muted);
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 .status-dot.active {
