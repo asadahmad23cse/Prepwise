@@ -3,6 +3,8 @@
   "productName": "Prepwise",
   "version": "1.2.0",
   "description": "Premium Stealth Interview Assistant",
+  "author": "Prepwise Team",
+  "keywords": ["stealth", "ai", "interview", "assistant"],
   "main": "main.js",
   "scripts": {
     "start": "electron .",
