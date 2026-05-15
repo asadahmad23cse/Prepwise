@@ -289,7 +289,14 @@ html, body {
   margin-left: 2px;
 }
 
-.dot-active { color: var(--accent-green); }
+.dot-active { 
+  color: var(--accent-green); 
+  animation: pulse-dot 2s infinite alternate;
+}
+@keyframes pulse-dot {
+  from { opacity: 0.6; text-shadow: none; }
+  to { opacity: 1; text-shadow: 0 0 5px var(--accent-green); }
+}
 .dot-inactive { color: #ef4444; }
 .dot-partial { color: #f59e0b; }
 
