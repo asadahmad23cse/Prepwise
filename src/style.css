@@ -1185,12 +1185,14 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   padding: 4px 10px;
   border-radius: var(--radius-xs);
   cursor: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease, box-shadow 0.2s ease;
 }
 
 .voice-btn:hover {
   background: var(--bg-hover);
   border-color: var(--accent-purple);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+  transform: translateY(-1px);
 }
 
 .voice-btn.active {
