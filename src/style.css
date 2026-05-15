@@ -865,8 +865,9 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   gap: 12px;
 }
 
-.status-item {
-  display: flex;
+.status-item span {
+  text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
+}
   align-items: center;
   gap: 4px;
 }
