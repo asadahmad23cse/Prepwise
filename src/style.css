@@ -405,6 +405,7 @@ html, body {
   top: 2px;
   background: var(--text-muted);
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   transition: transform 0.25s, background 0.25s;
 }
 
@@ -692,8 +693,8 @@ kbd {
 }
 
 .input-wrapper:focus-within {
-  border-color: rgba(124, 58, 237, 0.5);
-  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.25);
 }
 
 textarea {
