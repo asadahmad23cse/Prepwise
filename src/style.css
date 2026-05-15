@@ -861,7 +861,8 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   align-items: center;
   justify-content: space-between;
   padding: 6px 14px;
-  background: hsla(222, 47%, 4%, 0.8);
+  background: hsla(222, 47%, 4%, 0.6);
+  backdrop-filter: blur(8px);
   border-top: 1px solid var(--border);
   font-size: 10px;
   font-weight: 500;
