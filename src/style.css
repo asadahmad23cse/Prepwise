@@ -308,7 +308,7 @@ html, body {
   background: var(--bg-panel);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  animation: slideDown 0.2s ease;
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .settings-panel.hidden { display: none; }
@@ -882,6 +882,10 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   display: flex;
   align-items: center;
   gap: 4px;
+}
+#latency-val {
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 .status-item span {
   text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
