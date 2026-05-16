@@ -8,3 +8,4 @@ async function enhanceResumeBullets(bullets) {
   return "Calling Gemini..."; // Placeholder
 }
 function parseATSKeywords(resume) {
+  const keywords = ["React", "Node", "Python", "Scalability", "AWS", "SQL"];
