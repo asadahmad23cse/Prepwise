@@ -905,3 +905,17 @@ if (typeof getModePrompt === 'function') {
   console.log('AI Modules loaded successfully.');
 }
 
+
+// Override system prompt with Interview & Resume context
+const originalUpdateSystemPrompt = updateSystemPrompt;
+updateSystemPrompt = function() {
+  originalUpdateSystemPrompt();
+  if (typeof getModePrompt !== 'undefined') {
+    SYSTEM_PROMPT += "\n" + getModePrompt();
+  }
+  if (typeof getResumeContext !== 'undefined') {
+    SYSTEM_PROMPT += "\n" + getResumeContext();
+  }
+  SYSTEM_MESSAGE.parts[0].text = SYSTEM_PROMPT;
+};
+
