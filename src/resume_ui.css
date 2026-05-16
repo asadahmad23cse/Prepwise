@@ -7,3 +7,4 @@
 .enhance-btn:hover { filter: brightness(1.2); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
 .resume-feedback-box { background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--accent-green); padding: 8px; margin-top: 10px; font-size: 12px; }
 .resume-feedback-box.hidden { display: none; }
+.interview-modes { display: flex; gap: 8px; margin-bottom: 10px; }
