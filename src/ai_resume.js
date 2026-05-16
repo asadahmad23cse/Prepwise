@@ -4,3 +4,4 @@ function updateResume(text) { resumeContext = text; }
 function getResumeContext() { return resumeContext ? `Candidate Resume Context:\n${resumeContext}\n\n` : ""; }
 async function enhanceResumeBullets(bullets) {
   if (!bullets) return "Please paste your resume bullets first.";
+  const prompt = `As an expert resume reviewer, enhance the following resume bullets to be ATS-friendly, action-oriented, and impactful:\n${bullets}`;
