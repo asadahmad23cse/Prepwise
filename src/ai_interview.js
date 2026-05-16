@@ -7,3 +7,4 @@ function getModePrompt() {
   return "You are a Senior Technical Interviewer. Focus on algorithmic efficiency, time/space complexity.";
 }
 function switchMode(mode) { currentMode = mode; console.log("Switched to", mode); }
+function generateFollowUpQuestion(topic) {
