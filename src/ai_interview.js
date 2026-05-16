@@ -6,3 +6,4 @@ function getModePrompt() {
   if (currentMode === "System Design") return "You are a Staff Engineer evaluating a System Design interview. Focus on scalability, bottlenecks, and architecture.";
   return "You are a Senior Technical Interviewer. Focus on algorithmic efficiency, time/space complexity.";
 }
+function switchMode(mode) { currentMode = mode; console.log("Switched to", mode); }
