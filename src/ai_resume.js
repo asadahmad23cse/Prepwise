@@ -14,3 +14,4 @@ function parseATSKeywords(resume) {
 function calculateResumeScore(resume) {
   let score = 50;
   if (resume.length > 200) score += 20;
+  score += parseATSKeywords(resume).length * 5;
