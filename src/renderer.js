@@ -899,3 +899,9 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+// --- AI Interview & Resume Integration ---
+if (typeof getModePrompt === 'function') {
+  console.log('AI Modules loaded successfully.');
+}
+
