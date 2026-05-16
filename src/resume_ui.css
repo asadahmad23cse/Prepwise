@@ -1,1 +1,2 @@
 /* Resume UI Styles */
+.resume-panel { border: 1px solid var(--accent-purple); padding: 10px; margin-top: 10px; border-radius: 8px; }
