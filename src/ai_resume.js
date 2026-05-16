@@ -11,3 +11,4 @@ function parseATSKeywords(resume) {
   const keywords = ["React", "Node", "Python", "Scalability", "AWS", "SQL"];
   return keywords.filter(k => resume.toLowerCase().includes(k.toLowerCase()));
 }
+function calculateResumeScore(resume) {
