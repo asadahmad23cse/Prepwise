@@ -11,3 +11,4 @@ function generateFollowUpQuestion(topic) {
   return `Can you dive deeper into ${topic}? What challenges did you face?`;
 }
 const difficultyLevels = ["Easy", "Medium", "Hard"];
+let currentDifficulty = "Medium";
