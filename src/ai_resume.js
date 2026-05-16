@@ -7,3 +7,4 @@ async function enhanceResumeBullets(bullets) {
   const prompt = `As an expert resume reviewer, enhance the following resume bullets to be ATS-friendly, action-oriented, and impactful:\n${bullets}`;
   return "Calling Gemini..."; // Placeholder
 }
+function parseATSKeywords(resume) {
