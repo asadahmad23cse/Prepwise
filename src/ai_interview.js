@@ -13,3 +13,4 @@ function generateFollowUpQuestion(topic) {
 const difficultyLevels = ["Easy", "Medium", "Hard"];
 let currentDifficulty = "Medium";
 function setDifficulty(level) { currentDifficulty = level; }
+function getDifficultyPrompt() { return `The question should be of ${currentDifficulty} difficulty.`; }
