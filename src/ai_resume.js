@@ -12,3 +12,4 @@ function parseATSKeywords(resume) {
   return keywords.filter(k => resume.toLowerCase().includes(k.toLowerCase()));
 }
 function calculateResumeScore(resume) {
+  let score = 50;
