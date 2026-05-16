@@ -13,3 +13,4 @@
 .mode-badge.active { border-color: var(--accent-pink); color: var(--accent-pink); background: rgba(236, 72, 153, 0.15); }
 /* Advanced UI Polish */
 .resume-score-circle { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.keyword-tag { background: rgba(56, 189, 248, 0.2); color: var(--accent-cyan); padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-right: 4px; }
