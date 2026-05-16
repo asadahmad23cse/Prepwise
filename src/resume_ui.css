@@ -5,3 +5,4 @@
 .resume-textarea:focus { border-color: var(--accent-cyan); outline: none; }
 .enhance-btn { background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); border: none; padding: 4px 12px; color: white; border-radius: 4px; cursor: pointer; font-size: 11px; }
 .enhance-btn:hover { filter: brightness(1.2); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+.resume-feedback-box { background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--accent-green); padding: 8px; margin-top: 10px; font-size: 12px; }
