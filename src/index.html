@@ -35,6 +35,41 @@
       </div>
     </div>
     <div class="app-body">
+
+      <!-- TAB 1: LIVE INTERVIEW CHAT -->
+      <div class="tab-pane active" id="chatTab">
+        <div class="active-mode-banner">
+          <span class="banner-label">Current Mode:</span>
+          <span class="banner-val" id="activeModeText">⚡ DSA Live Coding (Concise Mode)</span>
+          <span class="difficulty-badge diff-medium" id="activeDiffBadge">Medium</span>
+        </div>
+        <div class="chat-area" id="chatArea">
+          <div class="chat-messages" id="chatMessages">
+            <div class="message assistant-msg">
+              <div class="msg-avatar">G</div>
+              <div class="msg-content">
+                <p>Hello! I am running in <strong>Ghost Stealth Mode</strong>. Ready to provide flawless, ultra-concise technical guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-pills">
+          <button class="pill-btn" onclick="sendQuickPrompt('Analyze time & space complexity')">⚡ Complexity</button>
+          <button class="pill-btn" onclick="sendQuickPrompt('Optimize code without changing logic')">🚀 Optimize</button>
+          <button class="pill-btn" onclick="sendQuickPrompt('Give me a hint, do not show solution')">💡 Hint</button>
+          <button class="pill-btn" onclick="sendQuickPrompt('Check for edge cases and bugs')">🐛 Edge Cases</button>
+        </div>
+        <div class="input-area">
+          <div class="input-wrapper">
+            <textarea id="userInput" placeholder="Ask a question or request a code solution... (Shift+Enter for new line)" rows="2" spellcheck="false"></textarea>
+            <div class="input-actions">
+              <button class="icon-btn scan-btn" id="scanBtn" title="Scan Screen (Ctrl+Shift+A)">📸</button>
+              <button class="icon-btn clear-btn" id="clearBtn" title="Clear chat">🗑</button>
+              <button class="send-btn" id="sendBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
