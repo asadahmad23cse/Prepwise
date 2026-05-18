@@ -4,248 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com https://generativelanguage.googleapis.com; media-src *; script-src 'self' 'unsafe-inline'; connect-src *; img-src 'self' data:; font-src https://fonts.gstatic.com"/>
-  <title>Prepwise Assistant</title>
+  <title>Prepwise Assistant v2.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="prism.css"/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="resume_ui.css"/>
 </head>
 <body>
-  <!-- Custom software cursor (not captured by screen recorders) -->
   <div id="custom-cursor"></div>
   <div id="cursor-trail"></div>
-
   <div class="app-container" id="app">
-
-    <!-- Title Bar / Drag Handle -->
     <div class="title-bar" id="titleBar">
       <div class="title-bar-left">
         <div class="app-logo">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <defs>
-              <linearGradient id="g1" x1="2" y1="2" x2="22" y2="22">
-                <stop offset="0%" stop-color="#a78bfa"/>
-                <stop offset="100%" stop-color="#38bdf8"/>
-              </linearGradient>
-            </defs>
+            <defs><linearGradient id="g1" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient></defs>
           </svg>
         </div>
         <span class="app-title">Prepwise</span>
-        <div class="stealth-badge" id="stealthBadge">● STEALTH</div>
+        <div class="stealth-badge" id="stealthBadge">● GHOST STEALTH</div>
       </div>
       <div class="title-bar-right">
-        <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+        <button class="icon-btn nav-btn active" data-tab="chatTab" title="Live Interview Chat">💬</button>
+        <button class="icon-btn nav-btn" data-tab="modesTab" title="Interview Coach & Resume">🧠</button>
+        <button class="icon-btn nav-btn" data-tab="stealthTab" title="Stealth Guard & Voice">🛡️</button>
+        <button class="icon-btn nav-btn" data-tab="settingsTab" title="Settings & Keys">⚙️</button>
         <button class="icon-btn" id="minimizeBtn" title="Hide (Ctrl+Shift+H)">—</button>
       </div>
     </div>
-
-    <!-- Stealth Status Panel -->
-    <div class="stealth-panel" id="stealthPanel">
-      <div class="stealth-row">
-        <span class="stealth-icon">🖥</span>
-        <span class="stealth-label">Screen Share</span>
-        <span class="stealth-dot dot-active" id="st-screen" title="Screen share hidden">●</span>
-      </div>
-      <div class="stealth-row">
-        <span class="stealth-icon">📌</span>
-        <span class="stealth-label">Taskbar</span>
-        <span class="stealth-dot dot-active" id="st-taskbar">●</span>
-      </div>
-      <div class="stealth-row">
-        <span class="stealth-icon">⌨</span>
-        <span class="stealth-label">Alt+Tab</span>
-        <span class="stealth-dot dot-active" id="st-alttab">●</span>
-      </div>
-      <div class="stealth-row">
-        <span class="stealth-icon">📊</span>
-        <span class="stealth-label">Task Manager</span>
-        <span class="stealth-dot dot-active" id="st-taskmgr">●</span>
-      </div>
-      <div class="stealth-row">
-        <span class="stealth-icon">🖱</span>
-        <span class="stealth-label">Cursor Guard</span>
-        <span class="stealth-dot dot-active" id="st-cursor">●</span>
-      </div>
+    <div class="app-body">
     </div>
-
-    <!-- Settings Panel (hidden by default) -->
-    <div class="settings-panel hidden" id="settingsPanel">
-      <h3 class="settings-title">Settings</h3>
-
-      <div class="setting-row api-row">
-        <label class="setting-label">Gemini API Key</label>
-      </div>
-      <div class="api-input-row">
-        <input type="password" id="apiKeyInput" placeholder="Paste your Gemini API key..." spellcheck="false"/>
-        <button class="save-key-btn" id="saveKeyBtn">Save</button>
-      </div>
-      <div class="api-status" id="apiStatus"></div>
-
-      <div class="setting-row">
-        <label class="setting-label">Target Language</label>
-        <select id="targetLanguage" class="select-input">
-          <option value="C++">C++</option>
-          <option value="Java">Java</option>
-          <option value="Python">Python</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="Go">Go</option>
-          <option value="Rust">Rust</option>
-        </select>
-      </div>
-
-      <div class="setting-row">
-        <label class="setting-label">Opacity</label>
-        <div class="slider-row">
-          <input type="range" id="opacitySlider" min="20" max="100" value="95" class="slider"/>
-          <span id="opacityValue" class="slider-val">95%</span>
-        </div>
-      </div>
-
-      <div class="setting-row">
-        <label class="setting-label">Always on Top</label>
-        <label class="toggle">
-          <input type="checkbox" id="alwaysOnTop" checked/>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-
-      <div class="setting-row">
-        <label class="setting-label">Click-Through Mode</label>
-        <label class="toggle">
-          <input type="checkbox" id="clickThrough"/>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-
-      <div class="setting-row">
-        <label class="setting-label">Custom Cursor</label>
-        <label class="toggle">
-          <input type="checkbox" id="customCursor" checked/>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-
-      <div class="setting-row">
-        <label class="setting-label">Panic Mode (Clear on Hide)</label>
-        <label class="toggle">
-          <input type="checkbox" id="panicMode"/>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-
-      <div class="hotkeys-info">
-        <div class="hotkey-row"><kbd>Ctrl+Shift+H</kbd> Toggle / Panic Hide</div>
-        <div class="hotkey-row"><kbd>Ctrl+Shift+A</kbd> Scan Screen 📸</div>
-        <div class="hotkey-row"><kbd>Ctrl+Shift+.</kbd> Click-Through</div>
-        <div class="hotkey-row"><kbd>Ctrl+Shift+Q</kbd> Panic Quit!</div>
-        <div class="hotkey-row"><kbd>Ctrl+Shift+↑↓←→</kbd> Move</div>
-      </div>
-      <div class="settings-footer" style="margin-top: 15px; font-size: 9px; color: var(--text-muted); text-align: center; letter-spacing: 0.1em; text-transform: uppercase;">
-        Prepwise v1.2.2 | Ghost Mode Active
-      </div>
-    </div>
-
-    <!-- Voice Capture Panel -->
-    <div class="voice-panel" id="voicePanel">
-      <div class="voice-header">
-        <div class="voice-header-left">
-          <span class="voice-icon">🎙</span>
-          <span class="voice-title">Voice Capture</span>
-          <span class="voice-status voice-status-idle" id="voiceStatus">Idle</span>
-        </div>
-        <div class="voice-header-right">
-          <button class="voice-btn voice-toggle-btn" id="voiceToggleBtn">Start</button>
-          <button class="voice-btn voice-answer-btn" id="voiceAnswerBtn" disabled>Answer This</button>
-        </div>
-      </div>
-      <div class="voice-live-box" id="voiceLiveBox">
-        <span class="voice-live-label">LIVE:</span>
-        <span class="voice-live-text" id="voiceLiveText">Waiting for speech...</span>
-      </div>
-      <div class="voice-transcript-log" id="voiceTranscriptLog"></div>
-    </div>
-
-    <!-- Main Chat Area -->
-    <div class="chat-area" id="chatArea">
-      <div class="chat-messages" id="chatMessages">
-        <div class="message assistant-msg">
-          <div class="msg-avatar">G</div>
-          <div class="msg-content">
-            <p>Hello! I'm running in <strong>Ghost Mode</strong> — invisible to screen share, taskbar, and Alt+Tab. How can I help you today?</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="input-area">
-      <div class="input-wrapper">
-        <textarea
-          id="userInput"
-          placeholder="Ask a question or request a code solution... (Shift+Enter for new line)"
-          rows="2"
-          spellcheck="false"
-        ></textarea>
-    <div class="resume-feedback-box hidden" id="resumeFeedbackBox"></div>
-        <div class="input-actions">
-          <button class="icon-btn scan-btn" id="scanBtn" title="Scan Screen (Ctrl+Shift+A)">📸</button>
-          <button class="icon-btn clear-btn" id="clearBtn" title="Clear chat">🗑</button>
-          <button class="send-btn" id="sendBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Status Bar -->
-    <div class="status-bar">
-      <div class="status-left">
-        <div class="status-item">
-          <span class="status-dot active" id="ai-status-dot"></span>
-          <span>AI: ONLINE</span>
-        </div>
-        <div class="status-item">
-          <span class="status-dot active"></span>
-          <span>STEALTH: ACTIVE</span>
-        </div>
-      </div>
-      <div class="status-right">
-        <div class="status-item">
-          <span id="current-lang-badge">JS</span>
-        </div>
-        <div class="status-item">
-          <span id="latency-val">24ms</span>
-        </div>
-      </div>
-    </div>
-
   </div>
-
-  <!-- Loading overlay -->
-  <div class="loading-overlay hidden" id="loadingOverlay">
-    <div class="spinner"></div>
-  </div>
-
-  <script src="marked.min.js"></script>
-  <script src="prism.min.js"></script>
-  <script src="ai_resume.js"></script>
-  <script src="ai_interview.js"></script>
-  <script src="renderer.js"></script>
 </body>
 </html>
-<div class="interview-modes">
-      <div class="mode-badge active">Technical</div>
-      <div class="mode-badge">Behavioral</div>
-      <div class="mode-badge">System Design</div>
-    </div>
-<div class="resume-panel" id="resumePanel">
-    <div class="resume-header">
-      <span>AI Resume Engine</span>
-      <button class="enhance-btn" id="runResumeBtn">Enhance</button>
-    <textarea class="resume-textarea" id="resumeInputBox" placeholder="Paste resume bullets..."></textarea>
-    </div>
-  </div>
