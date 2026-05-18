@@ -937,3 +937,12 @@ CRITICAL PROTOCOLS:
   SYSTEM_MESSAGE = { role: 'user', parts: [{ text: SYSTEM_PROMPT }] };
 };
 updateSystemPrompt();
+
+// Real-time latency simulation and status updates
+setInterval(() => {
+  const latEl = document.getElementById('latency-val');
+  if (latEl) {
+    const lat = Math.floor(Math.random() * 12) + (Math.random() > 0.92 ? 45 : 15);
+    latEl.textContent = lat + 'ms';
+  }
+}, 4000);
