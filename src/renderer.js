@@ -946,3 +946,9 @@ setInterval(() => {
     latEl.textContent = lat + 'ms';
   }
 }, 4000);
+
+// Set preferred models for lightning fast concise responses
+PREFERRED_MODELS = [
+  'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash-8b',
+  'gemini-1.5-pro', 'gemini-1.0-pro'
+];
