@@ -1228,3 +1228,10 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ==========================================
+   Navigation Tabs & Quick Action Pills
+   ========================================== */
+.nav-btn { font-size: 15px; padding: 4px 8px; width: auto; height: 28px; border-radius: var(--radius-xs); display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border: 1px solid transparent; transition: all 0.2s ease; }
+.nav-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--border); }
+.nav-btn.active { background: hsla(258, 90%, 66%, 0.25); border-color: var(--accent-purple); box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); color: white; }
