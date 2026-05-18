@@ -46,3 +46,10 @@
   background: hsla(222, 47%, 4%, 0.5); border: 1px solid var(--border);
   border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; font-weight: 500; color: var(--text-secondary);
 }
+
+.diff-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
+  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.diff-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.diff-btn.active { background: var(--accent-purple); color: white; border-color: var(--accent-purple); box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
