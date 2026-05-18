@@ -21,3 +21,18 @@ function parseATSKeywords(text) {
   const textLower = text.toLowerCase();
   return ATS_KEYWORDS_DICT.filter(keyword => textLower.includes(keyword.toLowerCase()));
 }
+
+function calculateResumeScore(text, keywords) {
+  if (!text || text.trim().length === 0) return 0;
+  let score = 40;
+  if (text.length > 300) score += 20;
+  else if (text.length > 150) score += 10;
+  const keywordPoints = keywords.length * 4;
+  score += Math.min(keywordPoints, 30);
+  const actionVerbs = ["led", "developed", "designed", "optimized", "scaled", "architected", "spearheaded", "engineered", "reduced", "increased"];
+  const textLower = text.toLowerCase();
+  let verbCount = 0;
+  actionVerbs.forEach(v => { if (textLower.includes(v)) verbCount++; });
+  score += Math.min(verbCount * 2, 10);
+  return Math.min(score, 100);
+}
