@@ -29,3 +29,13 @@ CRITICAL RULES FOR CONCISENESS & PRECISION:
 1. Evaluate the candidate's previous response and ask exactly ONE challenging follow-up question or hint.
 2. Keep your question under 2 sentences. Direct and probing.`
 };
+
+const DIFFICULTY_LEVELS = {
+  Easy: "Focus on fundamental data structures and straightforward algorithms.",
+  Medium: "Focus on optimal time/space tradeoffs, standard DP, graphs, and trees.",
+  Hard: "Focus on advanced algorithms (e.g., Trie, Union-Find, Segment Tree, complex DP) and severe constraints.",
+  FAANG: "Focus on production-level optimization, concurrency edge cases, and extreme scalability constraints."
+};
+
+let currentCoachMode = "DSA";
+let currentDifficulty = "Medium";
