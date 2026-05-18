@@ -95,3 +95,8 @@ Candidate Bullets:\n${text}`;
     }
   }
 }
+
+function getResumeContext() {
+  if (!resumeBulletsContext) return "";
+  return `=== CANDIDATE RESUME & EXPERIENCE CONTEXT ===\n${resumeBulletsContext}\n(Note: Align your answers with the candidate's background when appropriate)\n=============================================`;
+}
