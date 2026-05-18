@@ -1239,3 +1239,12 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .app-body { flex: 1; overflow: hidden; position: relative; display: flex; flex-direction: column; }
 .tab-pane { flex: 1; display: flex; flex-direction: column; overflow-y: auto; height: 100%; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .tab-pane.hidden { display: none !important; }
+
+.active-mode-banner { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: hsla(222, 47%, 6%, 0.85); border-bottom: 1px solid var(--border); font-size: 11.5px; flex-shrink: 0; }
+.banner-label { color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.banner-val { color: var(--accent-cyan); font-weight: 600; flex: 1; }
+.difficulty-badge { padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid var(--border); }
+.diff-easy { background: hsla(152, 69%, 31%, 0.15); color: var(--accent-green); border-color: var(--accent-green); }
+.diff-medium { background: hsla(189, 94%, 53%, 0.15); color: var(--accent-cyan); border-color: var(--accent-cyan); }
+.diff-hard { background: hsla(258, 90%, 66%, 0.15); color: var(--accent-purple); border-color: var(--accent-purple); }
+.diff-faang { background: hsla(339, 90%, 68%, 0.15); color: var(--accent-pink); border-color: var(--accent-pink); box-shadow: 0 0 10px hsla(339, 90%, 68%, 0.4); }
