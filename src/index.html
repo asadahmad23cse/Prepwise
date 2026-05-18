@@ -172,7 +172,24 @@
           </div>
         </div>
       </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <div class="status-item"><span class="status-dot active" id="ai-status-dot"></span><span>AI ONLINE</span></div>
+        <div class="status-item"><span class="status-dot active"></span><span>GHOST ACTIVE</span></div>
+      </div>
+      <div class="status-right">
+        <div class="status-item"><span id="current-lang-badge">C++</span></div>
+        <div class="status-item"><span id="latency-val">18ms</span></div>
+      </div>
     </div>
   </div>
+  <div class="loading-overlay hidden" id="loadingOverlay"><div class="spinner"></div></div>
+  <script src="marked.min.js"></script>
+  <script src="prism.min.js"></script>
+  <script src="ai_resume.js"></script>
+  <script src="ai_interview.js"></script>
+  <script src="renderer.js"></script>
 </body>
 </html>
