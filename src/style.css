@@ -1272,3 +1272,10 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 3px; border: 1px solid rgba(255,255,255,0.08); }
 ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.7); }
+
+@keyframes navPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); }
+  50% { box-shadow: 0 0 22px rgba(139, 92, 246, 0.8), 0 0 8px rgba(34, 211, 238, 0.6); }
+}
+.nav-btn.active { animation: navPulse 2.5s infinite ease-in-out; }
+
