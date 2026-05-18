@@ -53,3 +53,11 @@
 }
 .diff-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
 .diff-btn.active { background: var(--accent-purple); color: white; border-color: var(--accent-purple); box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
+
+.resume-textarea {
+  width: 100%; height: 120px; background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px; font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-primary); line-height: 1.5; resize: none; outline: none; transition: all 0.25s;
+  margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+.resume-textarea:focus { border-color: var(--accent-cyan); box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 0 15px hsla(189, 94%, 53%, 0.25); }
