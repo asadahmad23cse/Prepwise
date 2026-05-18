@@ -61,3 +61,12 @@
   margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
 }
 .resume-textarea:focus { border-color: var(--accent-cyan); box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 0 15px hsla(189, 94%, 53%, 0.25); }
+
+.resume-actions { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color: white;
+  border: none; border-radius: var(--radius-sm); padding: 10px 22px; font-family: var(--font-main);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm), 0 0 15px hsla(258, 90%, 66%, 0.4);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md), 0 0 25px hsla(189, 94%, 53%, 0.6); filter: brightness(1.1); }
+.btn-primary:active { transform: translateY(1px); }
