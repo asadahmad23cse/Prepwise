@@ -48,3 +48,12 @@ function selectCoachMode(mode) {
     if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
   }
 }
+
+function setDifficultyLevel(level) {
+  if (DIFFICULTY_LEVELS[level]) {
+    currentDifficulty = level;
+    console.log("[Interview Coach] Difficulty set to:", level);
+    updateActiveModeBanner();
+    if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
+  }
+}
