@@ -52,3 +52,46 @@ function animateScoreCircle(element, targetScore) {
     else element.style.borderColor = '#f59e0b';
   }, 25);
 }
+
+async function runAtsAnalysis() {
+  const inputEl = document.getElementById('resumeBulletsInput');
+  const scoreBox = document.getElementById('atsScoreBox');
+  const scoreCircle = document.getElementById('scoreCircle');
+  const keywordsList = document.getElementById('atsKeywordsList');
+  const feedbackBox = document.getElementById('resumeFeedbackBox');
+  if (!inputEl || !scoreBox || !scoreCircle || !keywordsList || !feedbackBox) return;
+  const text = inputEl.value.trim();
+  if (!text) {
+    feedbackBox.innerHTML = '⚠️ Please paste your resume bullets first.';
+    feedbackBox.className = 'resume-feedback-box err';
+    feedbackBox.classList.remove('hidden');
+    return;
+  }
+  updateResumeContext(text);
+  if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
+  const keywords = parseATSKeywords(text);
+  const score = calculateResumeScore(text, keywords);
+  scoreBox.classList.remove('hidden');
+  animateScoreCircle(scoreCircle, score);
+  keywordsList.innerHTML = keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('');
+  feedbackBox.innerHTML = '✨ Analyzing bullets and calling Gemini for ATS optimization...';
+  feedbackBox.className = 'resume-feedback-box info';
+  feedbackBox.classList.remove('hidden');
+  if (typeof callGemini === 'function') {
+    const prompt = `As an elite Professional ATS Resume Writer and FAANG Recruiter, review and rewrite the following resume bullets.
+CRITICAL RULES:
+1. Make them highly impactful, action-oriented, and quantified.
+2. Format as a clean markdown bulleted list.
+3. Highlight key technical metrics and eliminate passive language.
+
+Candidate Bullets:\n${text}`;
+    try {
+      const response = await callGemini(prompt);
+      feedbackBox.innerHTML = `<h4>🎯 ATS Optimized Bullets:</h4><div class="optimized-bullets">${typeof marked !== 'undefined' ? marked.parse(response) : response}</div>`;
+      feedbackBox.className = 'resume-feedback-box success';
+    } catch (e) {
+      feedbackBox.innerHTML = '❌ Failed to connect to Gemini: ' + e.message;
+      feedbackBox.className = 'resume-feedback-box err';
+    }
+  }
+}
