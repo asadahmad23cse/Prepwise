@@ -1268,3 +1268,7 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .setting-row:last-child { border-bottom: none; }
 
 .status-bar { border-top: 1px solid rgba(139, 92, 246, 0.2); background: hsla(222, 47%, 3%, 0.85); font-weight: 600; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 3px; border: 1px solid rgba(255,255,255,0.08); }
+::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.7); }
