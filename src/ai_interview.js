@@ -39,3 +39,12 @@ const DIFFICULTY_LEVELS = {
 
 let currentCoachMode = "DSA";
 let currentDifficulty = "Medium";
+
+function selectCoachMode(mode) {
+  if (COACH_MODES[mode]) {
+    currentCoachMode = mode;
+    console.log("[Interview Coach] Mode switched to:", mode);
+    updateActiveModeBanner();
+    if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
+  }
+}
