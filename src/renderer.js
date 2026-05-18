@@ -916,3 +916,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Override system prompt with concise interview coach and resume context
+updateSystemPrompt = function() {
+  const basePrompt = `======================================================================
+PREMIUM STEALTH AI INTERVIEW ASSISTANT v2.0
+======================================================================
+You are operating inside an elite examination and interview stealth assistant. Your primary objective is to provide high-density, flawless, and ultra-concise technical guidance.
+
+CRITICAL PROTOCOLS:
+1. Target Programming Language: ` + targetLanguage + `.
+2. Response Formatting: Never use conversational filler ("Sure", "Here is your code", "Let me know"). Be exceptionally concise and structured.
+3. Code blocks must be clean, optimal, and production-ready.
+======================================================================`;
+
+  const interviewContext = typeof getInterviewContextPrompt === 'function' ? getInterviewContextPrompt() : '';
+  const resumeContext = typeof getResumeContext === 'function' ? getResumeContext() : '';
+
+  SYSTEM_PROMPT = [basePrompt, interviewContext, resumeContext].filter(Boolean).join('\n\n');
+  SYSTEM_MESSAGE = { role: 'user', parts: [{ text: SYSTEM_PROMPT }] };
+};
+updateSystemPrompt();
