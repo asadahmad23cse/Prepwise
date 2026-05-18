@@ -15,3 +15,9 @@ const ATS_KEYWORDS_DICT = [
   "Machine Learning", "AI", "NLP", "PyTorch", "TensorFlow", "Agile", "Scrum", "TDD",
   "Optimization", "Performance", "High Availability", "Security", "OAuth", "JWT"
 ];
+
+function parseATSKeywords(text) {
+  if (!text) return [];
+  const textLower = text.toLowerCase();
+  return ATS_KEYWORDS_DICT.filter(keyword => textLower.includes(keyword.toLowerCase()));
+}
