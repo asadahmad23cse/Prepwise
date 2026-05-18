@@ -75,3 +75,12 @@
 .resume-score-circle { width: 50px; height: 50px; border-radius: 50%; border: 3.5px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--text-primary); text-shadow: 0 0 10px var(--accent-cyan); box-shadow: 0 0 15px hsla(189, 94%, 53%, 0.2); flex-shrink: 0; transition: border-color 0.5s ease; }
 .ats-keywords { display: flex; flex-wrap: wrap; gap: 6px; }
 .keyword-tag { background: hsla(189, 94%, 53%, 0.15); border: 1px solid hsla(189, 94%, 53%, 0.3); color: var(--accent-cyan); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 500; text-shadow: 0 0 8px hsla(189, 94%, 53%, 0.4); animation: fadeIn 0.3s ease; }
+
+.resume-feedback-box { background: hsla(222, 47%, 4%, 0.8); border: 1px solid var(--border); border-left: 4px solid var(--accent-violet); border-radius: var(--radius-sm); padding: 16px; font-size: 13px; line-height: 1.6; color: var(--text-primary); animation: fadeIn 0.3s ease; max-height: 300px; overflow-y: auto; }
+.resume-feedback-box.info { border-left-color: var(--accent-cyan); background: hsla(189, 94%, 53%, 0.05); }
+.resume-feedback-box.success { border-left-color: var(--accent-green); background: hsla(152, 69%, 31%, 0.08); }
+.resume-feedback-box.err { border-left-color: #ef4444; background: hsla(0, 84%, 60%, 0.08); }
+.optimized-bullets { margin-top: 10px; }
+.optimized-bullets ul { margin-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.optimized-bullets li { color: var(--text-primary); }
+.optimized-bullets strong { color: var(--accent-cyan); }
