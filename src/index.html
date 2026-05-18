@@ -138,6 +138,40 @@
           <div class="voice-transcript-log" id="voiceTranscriptLog"></div>
         </div>
       </div>
+
+      <!-- TAB 4: SETTINGS -->
+      <div class="tab-pane hidden" id="settingsTab">
+        <div class="settings-panel" id="settingsPanel">
+          <h3 class="settings-title">Configuration & API</h3>
+          <div class="setting-row api-row"><label class="setting-label">Gemini API Key</label></div>
+          <div class="api-input-row">
+            <input type="password" id="apiKeyInput" placeholder="Paste your Gemini API key..." spellcheck="false"/>
+            <button class="save-key-btn" id="saveKeyBtn">Save Key</button>
+          </div>
+          <div class="api-status" id="apiStatus"></div>
+          <div class="setting-row">
+            <label class="setting-label">Target Programming Language</label>
+            <select id="targetLanguage" class="select-input">
+              <option value="C++">C++</option><option value="Java">Java</option><option value="Python">Python</option>
+              <option value="JavaScript">JavaScript</option><option value="Go">Go</option><option value="Rust">Rust</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label class="setting-label">Window Opacity</label>
+            <div class="slider-row"><input type="range" id="opacitySlider" min="20" max="100" value="95" class="slider"/><span id="opacityValue" class="slider-val">95%</span></div>
+          </div>
+          <div class="setting-row"><label class="setting-label">Always on Top</label><label class="toggle"><input type="checkbox" id="alwaysOnTop" checked/><span class="toggle-slider"></span></label></div>
+          <div class="setting-row"><label class="setting-label">Click-Through Cloak</label><label class="toggle"><input type="checkbox" id="clickThrough"/><span class="toggle-slider"></span></label></div>
+          <div class="setting-row"><label class="setting-label">Custom Software Cursor</label><label class="toggle"><input type="checkbox" id="customCursor" checked/><span class="toggle-slider"></span></label></div>
+          <div class="setting-row"><label class="setting-label">Panic Purge (Clear on Hide)</label><label class="toggle"><input type="checkbox" id="panicMode"/><span class="toggle-slider"></span></label></div>
+          <div class="hotkeys-info">
+            <div class="hotkey-row"><kbd>Ctrl+Shift+H</kbd> Toggle Hide / Show Window</div>
+            <div class="hotkey-row"><kbd>Ctrl+Shift+A</kbd> Scan Screen OCR & Solve 📸</div>
+            <div class="hotkey-row"><kbd>Ctrl+Shift+.</kbd> Toggle Click-Through Cloaking</div>
+            <div class="hotkey-row"><kbd>Ctrl+Shift+Q</kbd> Instant Panic Quit & Purge Cache</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
