@@ -900,22 +900,19 @@ if (document.readyState === 'loading') {
   init();
 }
 
-// --- AI Interview & Resume Integration ---
-if (typeof getModePrompt === 'function') {
-  console.log('AI Modules loaded successfully.');
-}
 
-
-// Override system prompt with Interview & Resume context
-const originalUpdateSystemPrompt = updateSystemPrompt;
-updateSystemPrompt = function() {
-  originalUpdateSystemPrompt();
-  if (typeof getModePrompt !== 'undefined') {
-    SYSTEM_PROMPT += "\n" + getModePrompt();
-  }
-  if (typeof getResumeContext !== 'undefined') {
-    SYSTEM_PROMPT += "\n" + getResumeContext();
-  }
-  SYSTEM_MESSAGE.parts[0].text = SYSTEM_PROMPT;
-};
-
+// --- TAB NAVIGATION & PREMIUM INTEGRATION ---
+document.addEventListener('DOMContentLoaded', () => {
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.add('hidden'));
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-tab');
+      const targetPane = document.getElementById(targetId);
+      if (targetPane) targetPane.classList.remove('hidden');
+    });
+  });
+});
