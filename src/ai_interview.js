@@ -57,3 +57,9 @@ function setDifficultyLevel(level) {
     if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
   }
 }
+
+function getInterviewContextPrompt() {
+  const modePrompt = COACH_MODES[currentCoachMode] || COACH_MODES.DSA;
+  const diffPrompt = DIFFICULTY_LEVELS[currentDifficulty] || DIFFICULTY_LEVELS.Medium;
+  return `=== CURRENT INTERVIEW ROUND SPECIFICATION ===\nPersona & Mode: ${currentCoachMode}\nDifficulty Standard: ${currentDifficulty} (${diffPrompt})\n${modePrompt}\n===========================================`;
+}
