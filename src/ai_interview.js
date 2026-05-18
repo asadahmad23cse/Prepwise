@@ -63,3 +63,29 @@ function getInterviewContextPrompt() {
   const diffPrompt = DIFFICULTY_LEVELS[currentDifficulty] || DIFFICULTY_LEVELS.Medium;
   return `=== CURRENT INTERVIEW ROUND SPECIFICATION ===\nPersona & Mode: ${currentCoachMode}\nDifficulty Standard: ${currentDifficulty} (${diffPrompt})\n${modePrompt}\n===========================================`;
 }
+
+function sendQuickPrompt(promptText) {
+  const inputEl = document.getElementById('userInput');
+  if (inputEl) {
+    inputEl.value = promptText;
+    if (typeof sendMessage === 'function') sendMessage();
+  }
+}
+
+function updateActiveModeBanner() {
+  const modeTextEl = document.getElementById('activeModeText');
+  const diffBadgeEl = document.getElementById('activeDiffBadge');
+  if (modeTextEl) {
+    const titles = {
+      DSA: "⚡ DSA Live Coding (Concise Mode)",
+      SystemDesign: "🏗️ System Design Architecture",
+      Behavioral: "🤝 Behavioral & Leadership (STAR)",
+      FullMock: "🎯 Rigorous Mock Interview"
+    };
+    modeTextEl.textContent = titles[currentCoachMode] || titles.DSA;
+  }
+  if (diffBadgeEl) {
+    diffBadgeEl.textContent = currentDifficulty;
+    diffBadgeEl.className = 'difficulty-badge diff-' + currentDifficulty.toLowerCase();
+  }
+}
