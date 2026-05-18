@@ -29,3 +29,14 @@
   position: relative;
   overflow: hidden;
 }
+
+.mode-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; bottom: 0; background: transparent; transition: background 0.25s; }
+.mode-card:hover { background: var(--bg-hover); border-color: var(--accent-purple); transform: translateY(-2px); }
+.mode-card.active {
+  background: linear-gradient(135deg, hsla(258, 90%, 66%, 0.15), hsla(189, 94%, 53%, 0.1));
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px hsla(189, 94%, 53%, 0.2);
+}
+.mode-card.active::before { background: var(--accent-cyan); }
+.mode-card h4 { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.mode-card p { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
