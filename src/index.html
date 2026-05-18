@@ -116,6 +116,28 @@
           <div class="resume-feedback-box hidden" id="resumeFeedbackBox"></div>
         </div>
       </div>
+
+      <!-- TAB 3: STEALTH GUARD & VOICE -->
+      <div class="tab-pane hidden" id="stealthTab">
+        <div class="stealth-panel" id="stealthPanel">
+          <div class="stealth-row"><span class="stealth-icon">🖥</span><span class="stealth-label">Screen Share Guard</span><span class="stealth-dot dot-active" id="st-screen" title="Screen share hidden">●</span></div>
+          <div class="stealth-row"><span class="stealth-icon">📌</span><span class="stealth-label">Taskbar Conceal</span><span class="stealth-dot dot-active" id="st-taskbar">●</span></div>
+          <div class="stealth-row"><span class="stealth-icon">⌨</span><span class="stealth-label">Alt+Tab Cloak</span><span class="stealth-dot dot-active" id="st-alttab">●</span></div>
+          <div class="stealth-row"><span class="stealth-icon">📊</span><span class="stealth-label">Task Manager Host</span><span class="stealth-dot dot-active" id="st-taskmgr">●</span></div>
+          <div class="stealth-row"><span class="stealth-icon">🖱</span><span class="stealth-label">Software Cursor</span><span class="stealth-dot dot-active" id="st-cursor">●</span></div>
+        </div>
+        <div class="voice-panel" id="voicePanel">
+          <div class="voice-header">
+            <div class="voice-header-left"><span class="voice-icon">🎙</span><span class="voice-title">System Audio Voice Capture</span><span class="voice-status voice-status-idle" id="voiceStatus">Idle</span></div>
+            <div class="voice-header-right">
+              <button class="voice-btn voice-toggle-btn" id="voiceToggleBtn">Start</button>
+              <button class="voice-btn voice-answer-btn" id="voiceAnswerBtn" disabled>Answer This</button>
+            </div>
+          </div>
+          <div class="voice-live-box" id="voiceLiveBox"><span class="voice-live-label">LIVE AUDIO:</span><span class="voice-live-text" id="voiceLiveText">Waiting for speech...</span></div>
+          <div class="voice-transcript-log" id="voiceTranscriptLog"></div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
