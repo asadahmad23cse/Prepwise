@@ -1253,3 +1253,7 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .quick-pills::-webkit-scrollbar { height: 2px; }
 .pill-btn { background: hsla(222, 47%, 12%, 0.8); border: 1px solid var(--border); color: var(--text-secondary); font-family: var(--font-main); font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 16px; white-space: nowrap; cursor: pointer; transition: all 0.2s ease; }
 .pill-btn:hover { background: var(--accent-purple); color: white; border-color: var(--accent-purple); box-shadow: 0 0 10px hsla(258, 90%, 66%, 0.4); transform: translateY(-1px); }
+
+.message { transition: transform 0.2s ease; }
+.assistant-msg .msg-content { box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(139, 92, 246, 0.2); }
+.user-msg .msg-content { box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(56, 189, 248, 0.2); }
