@@ -1282,3 +1282,13 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 
 /* Salary Negotiator UI Adjustments */
 .mode-card h4 { display: flex; align-items: center; gap: 6px; }
+
+/* Video Analysis UI */
+.video-preview-box { background: #000; border: 1px solid var(--border); border-radius: var(--radius-md); height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+.webcam-placeholder { text-align: center; color: var(--text-muted); }
+.webcam-icon { font-size: 32px; display: block; margin-bottom: 10px; }
+.metric-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 12px; }
+.metric-label { width: 100px; color: var(--text-secondary); font-weight: 500; }
+.metric-bar { flex: 1; height: 8px; background: hsla(222, 47%, 8%, 1); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+.metric-fill { height: 100%; border-radius: 4px; transition: width 1s ease; box-shadow: 0 0 8px currentColor; }
+.metric-val { width: 45px; text-align: right; color: var(--text-primary); font-weight: 600; font-family: var(--font-mono); }
