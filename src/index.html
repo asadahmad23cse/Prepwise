@@ -107,7 +107,18 @@
             <button class="diff-btn active" onclick="setDifficultyLevel('Medium'); document.querySelectorAll('#modesTab .diff-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Medium</button>
             <button class="diff-btn" onclick="setDifficultyLevel('Hard'); document.querySelectorAll('#modesTab .diff-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Hard</button>
             <button class="diff-btn" onclick="setDifficultyLevel('FAANG'); document.querySelectorAll('#modesTab .diff-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">FAANG</button>
+          
+          <div class="company-selector" style="margin-top: 12px;">
+            <span style="font-size: 12px; color: var(--text-secondary); margin-right: 10px;">Target Company:</span>
+            <select class="select-input" onchange="setTargetCompany(this.value)">
+              <option value="General">General / Startup</option>
+              <option value="Google">Google (Focus on Scalability & DS)</option>
+              <option value="Meta">Meta (Focus on Speed & System Design)</option>
+              <option value="Amazon">Amazon (Focus on LPs)</option>
+              <option value="Netflix">Netflix (Focus on Culture)</option>
+            </select>
           </div>
+        </div>
         </div>
         <div class="section-card">
           <h3>🎯 ATS Resume Optimization</h3>
