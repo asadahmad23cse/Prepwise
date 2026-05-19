@@ -952,3 +952,18 @@ PREFERRED_MODELS = [
   'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash-8b',
   'gemini-1.5-pro', 'gemini-1.0-pro'
 ];
+
+// Simulate Video Analysis
+document.addEventListener('DOMContentLoaded', () => {
+  const simBtn = document.getElementById('simVideoAnalysisBtn');
+  if (simBtn) {
+    simBtn.addEventListener('click', () => {
+      simBtn.textContent = 'Analyzing Stream...';
+      simBtn.disabled = true;
+      setTimeout(() => {
+        document.getElementById('videoMetricsBox').classList.remove('hidden');
+        simBtn.textContent = 'Analysis Complete';
+      }, 1500);
+    });
+  }
+});
