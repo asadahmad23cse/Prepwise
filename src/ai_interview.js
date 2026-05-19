@@ -96,3 +96,10 @@ function updateActiveModeBanner() {
     diffBadgeEl.className = 'difficulty-badge diff-' + currentDifficulty.toLowerCase();
   }
 }
+
+let targetCompany = "General";
+function setTargetCompany(company) {
+  targetCompany = company;
+  console.log("[Interview Coach] Target Company set to:", company);
+  if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
+}
