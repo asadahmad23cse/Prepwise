@@ -100,3 +100,30 @@ function getResumeContext() {
   if (!resumeBulletsContext) return "";
   return `=== CANDIDATE RESUME & EXPERIENCE CONTEXT ===\n${resumeBulletsContext}\n(Note: Align your answers with the candidate's background when appropriate)\n=============================================`;
 }
+
+async function generateStarFormat() {
+  const inputEl = document.getElementById('resumeBulletsInput');
+  const feedbackBox = document.getElementById('resumeFeedbackBox');
+  if (!inputEl || !feedbackBox) return;
+  const text = inputEl.value.trim();
+  if (!text) {
+    feedbackBox.innerHTML = '⚠️ Please paste a scenario or bullet to expand into STAR format.';
+    feedbackBox.className = 'resume-feedback-box err';
+    feedbackBox.classList.remove('hidden');
+    return;
+  }
+  feedbackBox.innerHTML = '✨ Generating STAR behavioral format...';
+  feedbackBox.className = 'resume-feedback-box info';
+  feedbackBox.classList.remove('hidden');
+  if (typeof callGemini === 'function') {
+    try {
+      const prompt = `Transform the following into a compelling behavioral interview answer using the STAR method (Situation, Task, Action, Result):\n${text}`;
+      const response = await callGemini(prompt);
+      feedbackBox.innerHTML = `<h4>⭐ STAR Format Output:</h4><div class="optimized-bullets">${typeof marked !== 'undefined' ? marked.parse(response) : response}</div>`;
+      feedbackBox.className = 'resume-feedback-box success';
+    } catch(e) {
+      feedbackBox.innerHTML = '❌ Failed: ' + e.message;
+      feedbackBox.className = 'resume-feedback-box err';
+    }
+  }
+}
