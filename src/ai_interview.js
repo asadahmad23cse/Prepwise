@@ -67,7 +67,7 @@ function setDifficultyLevel(level) {
 function getInterviewContextPrompt() {
   const modePrompt = COACH_MODES[currentCoachMode] || COACH_MODES.DSA;
   const diffPrompt = DIFFICULTY_LEVELS[currentDifficulty] || DIFFICULTY_LEVELS.Medium;
-  return `=== CURRENT INTERVIEW ROUND SPECIFICATION ===\nPersona & Mode: ${currentCoachMode}\nDifficulty Standard: ${currentDifficulty} (${diffPrompt})\n${modePrompt}\n===========================================`;
+  return `=== CURRENT INTERVIEW ROUND SPECIFICATION ===\nPersona & Mode: ${currentCoachMode}\nTarget Company: ${targetCompany}\nDifficulty Standard: ${currentDifficulty} (${diffPrompt})\n${modePrompt}\nAlign all answers to the expected standards of ${targetCompany}.\n===========================================`;
 }
 
 function sendQuickPrompt(promptText) {
