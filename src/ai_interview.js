@@ -86,7 +86,8 @@ function updateActiveModeBanner() {
       DSA: "⚡ DSA Live Coding (Concise Mode)",
       SystemDesign: "🏗️ System Design Architecture",
       Behavioral: "🤝 Behavioral & Leadership (STAR)",
-      FullMock: "🎯 Rigorous Mock Interview"
+      FullMock: "🎯 Rigorous Mock Interview",
+      SalaryNegotiator: "💰 Salary Negotiation Expert"
     };
     modeTextEl.textContent = titles[currentCoachMode] || titles.DSA;
   }
