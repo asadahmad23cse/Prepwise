@@ -126,7 +126,8 @@
           <p class="section-desc">Paste your resume bullets to optimize them for ATS scanners and AI interviewers.</p>
           <textarea class="resume-textarea" id="resumeBulletsInput" placeholder="Paste resume bullet points here... (e.g., Developed backend microservices using Node.js and AWS...)"></textarea>
           <div class="resume-actions">
-            <button class="btn-primary" onclick="runAtsAnalysis()">Analyze & Optimize Bullets</button>
+            <button class="btn-primary" onclick="runAtsAnalysis()">Optimize for ATS</button>
+            <button class="btn-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706);" onclick="generateStarFormat()">Generate STAR</button>
             <div class="ats-score-box hidden" id="atsScoreBox">
               <div class="resume-score-circle" id="scoreCircle">0</div>
               <div class="ats-keywords" id="atsKeywordsList"></div>
