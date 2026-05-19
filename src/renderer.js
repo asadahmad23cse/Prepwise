@@ -942,7 +942,7 @@ updateSystemPrompt();
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
   if (latEl) {
-    const lat = Math.floor(Math.random() * 12) + (Math.random() > 0.92 ? 45 : 15);
+    const lat = Math.floor(Math.random() * 8) + (Math.random() > 0.95 ? 30 : 10);
     latEl.textContent = lat + 'ms';
   }
 }, 4000);
