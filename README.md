@@ -1,4 +1,4 @@
-# Prepwise Assistant v2.0 🚀
+# Prepwise Assistant v2.1.0 🚀
 
 Premium Stealth AI Interview Coach & Live Assistance Application designed for high-stakes technical interviews.
 
