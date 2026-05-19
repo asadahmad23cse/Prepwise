@@ -1279,3 +1279,6 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 }
 .nav-btn.active { animation: navPulse 2.5s infinite ease-in-out; }
 
+
+/* Salary Negotiator UI Adjustments */
+.mode-card h4 { display: flex; align-items: center; gap: 6px; }
