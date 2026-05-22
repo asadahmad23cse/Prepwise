@@ -1443,3 +1443,52 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   outline: none;
   background: white;
 }
+
+/* ==========================================
+   Code Sandbox Output Terminal Styles
+   ========================================== */
+.code-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 15;
+}
+.run-code-btn {
+  background: rgba(167, 139, 250, 0.2);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 4px;
+  color: var(--accent-violet);
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.run-code-btn:hover {
+  background: var(--accent-purple);
+  color: white;
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 8px var(--accent-purple);
+}
+.code-output-terminal {
+  background: #030712;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  color: #e5e7eb;
+}
+.code-output-terminal .term-lbl { color: var(--accent-amber); font-weight: 600; }
+.code-output-terminal .term-success { color: var(--accent-green); font-weight: 600; }
+.code-output-terminal .term-err { color: #ef4444; font-weight: 600; }
+.code-output-terminal .term-out { color: #9ca3af; }
