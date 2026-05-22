@@ -634,9 +634,15 @@ function appendMessage(role, text) {
     const originalCode = renderer.code.bind(renderer);
     renderer.code = (code, language, escaped) => {
       const html = originalCode(code, language, escaped);
-      return `<div class="code-container">
-                <button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>
+      const isRunnable = ['js', 'javascript', 'py', 'python', 'cpp', 'c++', 'go', 'java'].includes(language ? language.toLowerCase() : '');
+      const runBtn = isRunnable ? `<button class="run-code-btn" onclick="runSandboxCode(this)">Run Simulation</button>` : '';
+      return `<div class="code-container" data-lang="${language || ''}">
+                <div class="code-header-actions">
+                  ${runBtn}
+                  <button class="copy-code-btn" onclick="copyToClipboard(this)">Copy</button>
+                </div>
                 ${html}
+                <div class="code-output-terminal hidden"></div>
               </div>`;
     };
     contentHtml = marked.parse(text, { renderer });
