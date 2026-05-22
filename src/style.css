@@ -1322,3 +1322,35 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   accent-color: var(--accent-purple);
   cursor: pointer;
 }
+
+/* ==========================================
+   Video Webcam Stream & Overlay Styles
+   ========================================== */
+.video-preview-box {
+  position: relative;
+  overflow: hidden;
+  background: #000212;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#webcamFeed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  transform: scaleX(-1);
+}
+#webcamOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: none;
+  z-index: 5;
+}
