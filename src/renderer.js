@@ -701,36 +701,44 @@ function appendTranscriptLine(text) {
 async function startVoice() {
   try {
     setVoiceStatus('Requesting...');
-    voiceLiveText.textContent = 'Connecting to system audio...';
+    voiceLiveText.textContent = 'Connecting to audio...';
 
-    var sources = [];
-    if (window.electronAPI && window.electronAPI.getDesktopSources) {
-      sources = await window.electronAPI.getDesktopSources();
-    }
+    const sourceSel = document.querySelector('input[name="voiceSource"]:checked');
+    const isMic = sourceSel && sourceSel.value === 'mic';
 
-    var sourceId = null;
-    for (var i = 0; i < sources.length; i++) {
-      if (sources[i].name === 'Entire Screen' || sources[i].name === 'Entire screen' || sources[i].id.indexOf('screen:') === 0) {
-        sourceId = sources[i].id;
-        break;
+    if (isMic) {
+      // Microphone input constraints
+      voiceStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } else {
+      // System meeting audio constraints
+      var sources = [];
+      if (window.electronAPI && window.electronAPI.getDesktopSources) {
+        sources = await window.electronAPI.getDesktopSources();
       }
-    }
-    if (!sourceId && sources.length > 0) {
-      sourceId = sources[0].id;
-    }
 
-    var constraints = {
-      audio: {
-        mandatory: {
-          chromeMediaSource: 'desktop'
-        }
-      },
-      video: {
-        mandatory: {
-          chromeMediaSource: 'desktop'
+      var sourceId = null;
+      for (var i = 0; i < sources.length; i++) {
+        if (sources[i].name === 'Entire Screen' || sources[i].name === 'Entire screen' || sources[i].id.indexOf('screen:') === 0) {
+          sourceId = sources[i].id;
+          break;
         }
       }
-    };
+      if (!sourceId && sources.length > 0) {
+        sourceId = sources[0].id;
+      }
+
+      var constraints = {
+        audio: {
+          mandatory: {
+            chromeMediaSource: 'desktop'
+          }
+        },
+        video: {
+          mandatory: {
+            chromeMediaSource: 'desktop'
+          }
+        }
+      };
 
     if (sourceId) {
       constraints.video.mandatory.chromeMediaSourceId = sourceId;
