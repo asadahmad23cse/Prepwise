@@ -803,7 +803,7 @@ async function startVoice() {
         appendTranscriptLine(finalText.trim());
         voiceAnswerBtn.disabled = false;
       }
-      voiceLiveText.textContent = interimText || (voiceTranscript ? 'Listening...' : 'Listening to system audio...');
+      voiceLiveText.textContent = interimText || (voiceTranscript ? 'Listening...' : (isMic ? 'Listening to your microphone...' : 'Listening to system audio...'));
     };
 
     voiceRecognition.onerror = function(e) {
