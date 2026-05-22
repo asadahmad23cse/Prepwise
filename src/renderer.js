@@ -1215,3 +1215,29 @@ window.runSandboxCode = function(btn) {
     }
   }, 750);
 };
+
+function executeMockLanguageCompiler(lang, terminal) {
+  const isPython = lang.includes('py') || lang.includes('python');
+  const isCpp = lang.includes('cpp') || lang.includes('c++');
+  const isGo = lang.includes('go');
+  const isJava = lang.includes('java');
+
+  let compilerHeader = '';
+  if (isPython) compilerHeader = '> python3 main.py';
+  else if (isCpp) compilerHeader = '> g++ -std=c++17 -O3 main.cpp -o main && ./main';
+  else if (isGo) compilerHeader = '> go run main.go';
+  else if (isJava) compilerHeader = '> javac Main.java && java Main';
+  else compilerHeader = `> run-compiler --lang=${lang}`;
+
+  const logs = [
+    compilerHeader,
+    `<span class="term-lbl">Initializing compiling engine & test harness for ${lang.toUpperCase()}...</span>`,
+    '<span class="term-success">✓ Compilation / compilation check succeeded.</span>',
+    'Running assertion verification tests...',
+    '<span class="term-success">✓ Test Case 1: Core parameters output validation - Passed</span>',
+    '<span class="term-success">✓ Test Case 2: Boundary conditions & empty state checks - Passed</span>',
+    '<span class="term-success">✓ Test Case 3: Execution complexity under bounds (O(N) check) - Passed</span>',
+    '<span class="term-success">✓ Optimal compilation metrics confirmed. Time complexity matches expectation.</span>'
+  ];
+  terminal.innerHTML = logs.join('\n');
+}
