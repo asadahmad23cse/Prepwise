@@ -201,7 +201,9 @@ async function callGemini(userMessage) {
         if (res.status !== 404 && !errMsg.includes('not found')) {
           errors.push(modelName + ': ' + errMsg);
         }
-        break; // If 404/not-found, skip both versions for this model
+        // Auto fallback model sequence
+        console.warn('API connection failed for ' + modelName + ', trying alternative fallback model.');
+        break;
 
       } catch (e) {
         errors.push(modelName + ': ' + e.message);
