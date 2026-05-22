@@ -1505,3 +1505,14 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .key-badge.status-loading { color: var(--accent-amber); }
 .key-badge.status-valid { color: var(--accent-green); background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); }
 .key-badge.status-invalid { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); }
+
+/* Micro interactions */
+.nav-btn:active {
+  transform: scale(0.97);
+}
+.mode-card:active {
+  transform: scale(0.98);
+}
+.quick-pills button:active {
+  transform: scale(0.95);
+}
