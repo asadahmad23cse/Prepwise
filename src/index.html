@@ -170,16 +170,18 @@
           <h3>🎥 Body Language & Confidence Analysis</h3>
           <p class="section-desc">Simulate a webcam feed to analyze eye contact, posture, and speaking cadence via AI.</p>
           <div class="video-preview-box">
-             <div class="webcam-placeholder">
+             <video id="webcamFeed" autoplay muted playsinline></video>
+             <canvas id="webcamOverlay"></canvas>
+             <div class="webcam-placeholder" id="webcamPlaceholder">
                 <span class="webcam-icon">📹</span>
-                <p>Webcam feed placeholder</p>
+                <p>Webcam feed ready</p>
                 <button class="btn-primary" style="margin-top: 15px;" id="simVideoAnalysisBtn">Start AI Video Analysis</button>
              </div>
           </div>
           <div class="video-metrics hidden" id="videoMetricsBox">
-             <div class="metric-row"><span class="metric-label">Eye Contact:</span><div class="metric-bar"><div class="metric-fill" style="width: 85%; background: var(--accent-green);"></div></div><span class="metric-val">85%</span></div>
-             <div class="metric-row"><span class="metric-label">Posture:</span><div class="metric-bar"><div class="metric-fill" style="width: 70%; background: var(--accent-cyan);"></div></div><span class="metric-val">70%</span></div>
-             <div class="metric-row"><span class="metric-label">Speaking Pace:</span><div class="metric-bar"><div class="metric-fill" style="width: 92%; background: var(--accent-purple);"></div></div><span class="metric-val">120 wpm</span></div>
+             <div class="metric-row"><span class="metric-label">Eye Contact:</span><div class="metric-bar"><div class="metric-fill" id="metric-eye" style="width: 0%; background: var(--accent-green);"></div></div><span class="metric-val" id="val-eye">0%</span></div>
+             <div class="metric-row"><span class="metric-label">Posture:</span><div class="metric-bar"><div class="metric-fill" id="metric-posture" style="width: 0%; background: var(--accent-cyan);"></div></div><span class="metric-val" id="val-posture">0%</span></div>
+             <div class="metric-row"><span class="metric-label">Speaking Pace:</span><div class="metric-bar"><div class="metric-fill" id="metric-pace" style="width: 0%; background: var(--accent-purple);"></div></div><span class="metric-val" id="val-pace">0 wpm</span></div>
              <div class="resume-feedback-box info" style="margin-top: 15px;">
                 💡 <strong>AI Feedback:</strong> Good eye contact. Try to sit up slightly straighter to project more confidence. Your speaking pace is excellent.
              </div>
