@@ -411,6 +411,7 @@ saveKeyBtn.addEventListener('click', function() {
   localStorage.setItem('ghost_gemini_key', key);
   updateStatusBar();
   setApiStatus('Key saved (ends ....' + key.slice(-4) + ') — send a message!', 'ok');
+  checkApiKeyHealth(key);
   appendMessage('assistant', 'New API key saved! Send any message and I will auto-discover the best model for your account.');
 });
 
