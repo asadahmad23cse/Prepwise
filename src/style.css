@@ -1492,3 +1492,16 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .code-output-terminal .term-success { color: var(--accent-green); font-weight: 600; }
 .code-output-terminal .term-err { color: #ef4444; font-weight: 600; }
 .code-output-terminal .term-out { color: #9ca3af; }
+
+/* Key badges */
+.key-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+}
+.key-badge.status-loading { color: var(--accent-amber); }
+.key-badge.status-valid { color: var(--accent-green); background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); }
+.key-badge.status-invalid { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); }
