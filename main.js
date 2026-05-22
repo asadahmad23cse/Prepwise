@@ -210,6 +210,16 @@ ipcMain.on('hide-window', () => {
   if (mainWindow) mainWindow.hide();
 });
 
+ipcMain.on('set-disguise-title', (event, active) => {
+  if (mainWindow) {
+    if (active) {
+      mainWindow.setTitle('Settings');
+    } else {
+      mainWindow.setTitle('Prepwise');
+    }
+  }
+});
+
 ipcMain.on('drag-window', (event, { deltaX, deltaY }) => {
   if (!mainWindow) return;
   const [x, y] = mainWindow.getPosition();
