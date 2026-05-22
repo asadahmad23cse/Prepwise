@@ -978,3 +978,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================
+// WEBCAM STREAM & FACIAL SCANNING OVERLAY
+// ==========================================
+let webcamStream = null;
+let faceTrackingInterval = null;
+let metricsInterval = null;
+
+async function startWebcam() {
+  const video = document.getElementById('webcamFeed');
+  const overlay = document.getElementById('webcamOverlay');
+  const placeholder = document.getElementById('webcamPlaceholder');
+  try {
+    webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    if (video) {
+      video.srcObject = webcamStream;
+      video.style.display = 'block';
+    }
+    if (overlay) overlay.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+    
+    startFaceTrackingOverlay();
+    startMetricsFluctuation();
+  } catch (e) {
+    console.error('[Webcam]', e.message);
+    if (placeholder) placeholder.innerHTML = '<p style="color:var(--accent-pink);">Webcam Access Denied/Unavailable</p>';
+  }
+}
+
+function stopWebcam() {
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(t => t.stop());
+    webcamStream = null;
+  }
+  const video = document.getElementById('webcamFeed');
+  const overlay = document.getElementById('webcamOverlay');
+  const placeholder = document.getElementById('webcamPlaceholder');
+  if (video) video.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+  if (placeholder) {
+    placeholder.style.display = 'block';
+    placeholder.innerHTML = '<span class="webcam-icon">📹</span><p>Webcam feed ready</p><button class="btn-primary" style="margin-top:15px;" id="simVideoAnalysisBtn">Start AI Video Analysis</button>';
+    // Rebind button
+    document.getElementById('simVideoAnalysisBtn').addEventListener('click', handleVideoStart);
+  }
+  if (faceTrackingInterval) clearInterval(faceTrackingInterval);
+  if (metricsInterval) clearInterval(metricsInterval);
+}
