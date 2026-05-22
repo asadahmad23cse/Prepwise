@@ -1247,3 +1247,28 @@ function executeMockLanguageCompiler(lang, terminal) {
   ];
   terminal.innerHTML = logs.join('\n');
 }
+
+// ==========================================
+// GEMINI API KEY HEALTH CHECKS
+// ==========================================
+async function checkApiKeyHealth(key) {
+  const indicator = document.getElementById('keyValidationBadge');
+  if (!indicator) return;
+  
+  indicator.textContent = 'Verifying key...';
+  indicator.className = 'key-badge status-loading';
+  
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?key=' + key);
+    if (res.ok) {
+      indicator.textContent = '✓ Key Valid';
+      indicator.className = 'key-badge status-valid';
+    } else {
+      indicator.textContent = '✗ Invalid Key';
+      indicator.className = 'key-badge status-invalid';
+    }
+  } catch (e) {
+    indicator.textContent = '✗ Connection Error';
+    indicator.className = 'key-badge status-invalid';
+  }
+}
