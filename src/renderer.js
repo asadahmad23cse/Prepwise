@@ -1179,3 +1179,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================
+// CODE SANDBOX EXECUTOR & SIMULATOR
+// ==========================================
+window.runSandboxCode = function(btn) {
+  const container = btn.closest('.code-container');
+  if (!container) return;
+  const code = container.querySelector('code').innerText;
+  const lang = container.getAttribute('data-lang') || 'js';
+  const terminal = container.querySelector('.code-output-terminal');
+  
+  if (!terminal) return;
+  terminal.classList.remove('hidden');
+  terminal.innerHTML = '<span class="term-lbl">RUNNING INTERACTIVE CODE SIMULATION...</span>';
+  
+  setTimeout(() => {
+    if (lang === 'javascript' || lang === 'js') {
+      try {
+        let outputLog = [];
+        const sandboxConsole = {
+          log: (...args) => outputLog.push(args.map(x => typeof x === 'object' ? JSON.stringify(x) : x).join(' ')),
+          error: (...args) => outputLog.push('Error: ' + args.join(' ')),
+          warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
+        };
+        const execute = new Function('console', code);
+        execute(sandboxConsole);
+        
+        terminal.innerHTML = `<span class="term-success">✓ Sandbox execution completed successfully.</span>\n<span class="term-out">${outputLog.join('\n') || 'Console empty (no output returned)'}</span>`;
+      } catch (e) {
+        terminal.innerHTML = `<span class="term-err">✗ Execution Runtime Error:</span>\n<span class="term-out">${e.message}</span>`;
+      }
+    } else {
+      executeMockLanguageCompiler(lang, terminal);
+    }
+  }, 750);
+};
