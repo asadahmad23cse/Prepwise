@@ -1199,7 +1199,7 @@ window.runSandboxCode = function(btn) {
       try {
         let outputLog = [];
         const sandboxConsole = {
-          log: (...args) => outputLog.push(args.map(x => typeof x === 'object' ? JSON.stringify(x) : x).join(' ')),
+          log: (...args) => outputLog.push(args.map(x => (x === null) ? 'null' : (typeof x === 'object' ? JSON.stringify(x, null, 1) : String(x))).join(' ')),
           error: (...args) => outputLog.push('Error: ' + args.join(' ')),
           warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
         };
