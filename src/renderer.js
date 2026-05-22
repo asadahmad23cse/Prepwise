@@ -968,14 +968,7 @@ PREFERRED_MODELS = [
 document.addEventListener('DOMContentLoaded', () => {
   const simBtn = document.getElementById('simVideoAnalysisBtn');
   if (simBtn) {
-    simBtn.addEventListener('click', () => {
-      simBtn.textContent = 'Analyzing Stream...';
-      simBtn.disabled = true;
-      setTimeout(() => {
-        document.getElementById('videoMetricsBox').classList.remove('hidden');
-        simBtn.textContent = 'Analysis Complete';
-      }, 1500);
-    });
+    simBtn.addEventListener('click', handleVideoStart);
   }
 });
 
