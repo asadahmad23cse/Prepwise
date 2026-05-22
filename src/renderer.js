@@ -744,24 +744,27 @@ async function startVoice() {
       constraints.video.mandatory.chromeMediaSourceId = sourceId;
     }
 
-    voiceStream = await navigator.mediaDevices.getUserMedia(constraints);
-
-    var videoTracks = voiceStream.getVideoTracks();
-    videoTracks.forEach(function(t) { t.stop(); });
+      voiceStream = await navigator.mediaDevices.getUserMedia(constraints);
+    }
 
     var audioTracks = voiceStream.getAudioTracks();
     if (audioTracks.length === 0) {
       setVoiceStatus('Error');
-      voiceLiveText.textContent = 'No system audio detected. Check that audio is playing.';
+      voiceLiveText.textContent = 'No audio input detected. Check connections.';
       voiceStream = null;
       return;
     }
 
-    voiceAudioContext = new AudioContext();
-    var audioOnlyStream = new MediaStream(audioTracks);
-    var source = voiceAudioContext.createMediaStreamSource(audioOnlyStream);
-    var dest = voiceAudioContext.createMediaStreamDestination();
-    source.connect(dest);
+    if (!isMic) {
+      var videoTracks = voiceStream.getVideoTracks();
+      videoTracks.forEach(function(t) { t.stop(); });
+
+      voiceAudioContext = new AudioContext();
+      var audioOnlyStream = new MediaStream(audioTracks);
+      var source = voiceAudioContext.createMediaStreamSource(audioOnlyStream);
+      var dest = voiceAudioContext.createMediaStreamDestination();
+      source.connect(dest);
+    }
 
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) {
