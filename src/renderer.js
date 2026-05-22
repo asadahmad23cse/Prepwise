@@ -1088,3 +1088,41 @@ function startFaceTrackingOverlay() {
     ctx.stroke();
   }, 45);
 }
+
+function startMetricsFluctuation() {
+  const elEye = document.getElementById('metric-eye');
+  const valEye = document.getElementById('val-eye');
+  const elPosture = document.getElementById('metric-posture');
+  const valPosture = document.getElementById('val-posture');
+  const elPace = document.getElementById('metric-pace');
+  const valPace = document.getElementById('val-pace');
+
+  metricsInterval = setInterval(() => {
+    const eye = Math.floor(Math.random() * 10) + 80; // 80% to 90%
+    const posture = Math.floor(Math.random() * 15) + 65; // 65% to 80%
+    const pace = Math.floor(Math.random() * 20) + 110; // 110 to 130 wpm
+    
+    if (elEye) elEye.style.width = eye + '%';
+    if (valEye) valEye.textContent = eye + '%';
+    if (elPosture) elPosture.style.width = posture + '%';
+    if (valPosture) valPosture.textContent = posture + '%';
+    if (elPace) elPace.style.width = (pace / 2) + '%';
+    if (valPace) valPace.textContent = pace + ' wpm';
+  }, 1000);
+}
+
+function handleVideoStart() {
+  const btn = document.getElementById('simVideoAnalysisBtn');
+  if (!btn) return;
+  if (btn.textContent.includes('Start')) {
+    btn.textContent = 'Stop Analysis';
+    btn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)';
+    startWebcam();
+    document.getElementById('videoMetricsBox').classList.remove('hidden');
+  } else {
+    btn.textContent = 'Start AI Video Analysis';
+    btn.style.background = '';
+    stopWebcam();
+    document.getElementById('videoMetricsBox').classList.add('hidden');
+  }
+}
