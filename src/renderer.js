@@ -1119,3 +1119,62 @@ function handleVideoStart() {
     document.getElementById('videoMetricsBox').classList.add('hidden');
   }
 }
+
+// ==========================================
+// PANIC CLOAK DISGUISE CONTROLLER
+// ==========================================
+let isDisguised = false;
+
+function toggleDisguise() {
+  isDisguised = !isDisguised;
+  const overlay = document.getElementById('disguiseOverlay');
+  const disguiseCb = document.getElementById('disguiseModeToggle');
+  
+  if (overlay) {
+    if (isDisguised) {
+      overlay.classList.remove('hidden');
+      document.body.style.cursor = 'default'; // Restore pointer
+      if (window.electronAPI && window.electronAPI.onStealthStatus) {
+        ipcRendererSend('set-disguise-title', true);
+      }
+    } else {
+      overlay.classList.add('hidden');
+      if (cursorEnabled) document.body.style.cursor = 'none';
+      if (window.electronAPI && window.electronAPI.onStealthStatus) {
+        ipcRendererSend('set-disguise-title', false);
+      }
+    }
+  }
+  if (disguiseCb) disguiseCb.checked = isDisguised;
+}
+
+// Wrapper since ipcRenderer isn't exposed directly, we can check or send
+function ipcRendererSend(channel, val) {
+  if (window.electronAPI && window.electronAPI.setAlwaysOnTop) {
+    // In preload.js we don't have direct ipcRenderer.send access for custom events,
+    // but we can piggyback or modify preload to support send-title.
+    // However, we can also use window.electronAPI if we added it,
+    // or just let it update the renderer interface only if FFI is not fully loaded.
+    // For now, let's keep it safe:
+    if (channel === 'set-disguise-title') {
+      window.electronAPI.setAlwaysOnTop(!val); // Always on top toggle fallback
+    }
+  }
+}
+
+// Bind hotkey
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'D') {
+    e.preventDefault();
+    toggleDisguise();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dToggle = document.getElementById('disguiseModeToggle');
+  if (dToggle) {
+    dToggle.addEventListener('change', () => {
+      toggleDisguise();
+    });
+  }
+});
