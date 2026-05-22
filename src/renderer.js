@@ -1026,3 +1026,65 @@ function stopWebcam() {
   if (faceTrackingInterval) clearInterval(faceTrackingInterval);
   if (metricsInterval) clearInterval(metricsInterval);
 }
+
+function startFaceTrackingOverlay() {
+  const canvas = document.getElementById('webcamOverlay');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+
+  faceTrackingInterval = setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw sci-fi scanning box
+    const boxWidth = 140;
+    const boxHeight = 165;
+    const x = (canvas.width - boxWidth) / 2 + Math.sin(Date.now() / 600) * 12;
+    const y = (canvas.height - boxHeight) / 2 + Math.cos(Date.now() / 800) * 6;
+    
+    // Transparent glow fill
+    ctx.fillStyle = 'rgba(34, 211, 238, 0.04)';
+    ctx.fillRect(x, y, boxWidth, boxHeight);
+    
+    // Dotted guide box
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(x, y, boxWidth, boxHeight);
+    ctx.setLineDash([]); // reset
+    
+    // Corner brackets
+    ctx.strokeStyle = '#22d3ee';
+    ctx.lineWidth = 3;
+    const l = 16;
+    // top-left
+    ctx.beginPath(); ctx.moveTo(x, y + l); ctx.lineTo(x, y); ctx.lineTo(x + l, y); ctx.stroke();
+    // top-right
+    ctx.beginPath(); ctx.moveTo(x + boxWidth - l, y); ctx.lineTo(x + boxWidth, y); ctx.lineTo(x + boxWidth, y + l); ctx.stroke();
+    // bottom-left
+    ctx.beginPath(); ctx.moveTo(x, y + boxHeight - l); ctx.lineTo(x, y + boxHeight); ctx.lineTo(x + l, y + boxHeight); ctx.stroke();
+    // bottom-right
+    ctx.beginPath(); ctx.moveTo(x + boxWidth - l, y + boxHeight); ctx.lineTo(x + boxWidth, y + boxHeight); ctx.lineTo(x + boxWidth, y + boxHeight - l); ctx.stroke();
+    
+    // Target Reticle
+    ctx.strokeStyle = 'rgba(244, 114, 182, 0.55)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(x + boxWidth/2, y + boxHeight/2 - 20, 10, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + boxWidth/2 - 15, y + boxHeight/2 - 20);
+    ctx.lineTo(x + boxWidth/2 + 15, y + boxHeight/2 - 20);
+    ctx.stroke();
+    
+    // Horizontal sweep line
+    const sweepY = y + (Math.sin(Date.now() / 300) + 1) * (boxHeight / 2);
+    ctx.strokeStyle = 'rgba(167, 139, 250, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, sweepY);
+    ctx.lineTo(x + boxWidth, sweepY);
+    ctx.stroke();
+  }, 45);
+}
