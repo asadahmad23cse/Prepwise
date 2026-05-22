@@ -4,3 +4,9 @@ dist/
 *.log
 .env
 assets/
+
+# Dev tools and local keys
+.env
+.env.local
+ghost_key_backup.txt
+make_30_production_commits.js
