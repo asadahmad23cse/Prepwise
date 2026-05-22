@@ -1133,6 +1133,7 @@ function toggleDisguise() {
   if (overlay) {
     if (isDisguised) {
       overlay.classList.remove('hidden');
+      if (panicModeEnabled) clearChat(); // Panic purge on disguise
       document.body.style.cursor = 'default'; // Restore pointer
       if (window.electronAPI && window.electronAPI.onStealthStatus) {
         ipcRendererSend('set-disguise-title', true);
