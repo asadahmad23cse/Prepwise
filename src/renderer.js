@@ -1379,3 +1379,43 @@ function runSimulatedCompiler(lang, terminal) {
   terminal.innerHTML = logs.join('\n');
 }
 
+// ==========================================
+// INTERVIEW CHEAT SHEETS TAB CONTROLLER
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('cheatSheetSearch');
+  const items = document.querySelectorAll('#cheatSheetsTab .accordion-item');
+
+  // Toggle Accordion
+  items.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    header.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      items.forEach(i => i.classList.remove('active'));
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    });
+  });
+
+  if (!searchInput) return;
+
+  // Search Filter
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    items.forEach(item => {
+      const matchText = item.getAttribute('data-title') || '';
+      const isMatch = matchText.includes(query);
+      
+      if (isMatch || query === '') {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+        item.classList.remove('active');
+      }
+    });
+  });
+});
+
+
