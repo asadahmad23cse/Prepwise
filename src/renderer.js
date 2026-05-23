@@ -387,6 +387,24 @@ if (targetLangSel) {
     updateSystemPrompt();
     updateStatusBar();
     appendMessage('assistant', 'Target language set to **' + targetLanguage + '**. Responses will now be in ' + targetLanguage + '.');
+
+    // Sync to sandbox
+    const sandboxLangSelect = document.getElementById('sandboxLanguage');
+    if (sandboxLangSelect) {
+      const mapping = {
+        'C++': 'cpp',
+        'Java': 'java',
+        'Python': 'python',
+        'JavaScript': 'javascript',
+        'Go': 'go',
+        'Rust': 'rust'
+      };
+      const sandVal = mapping[targetLanguage];
+      if (sandVal && sandboxLangSelect.value !== sandVal) {
+        sandboxLangSelect.value = sandVal;
+        sandboxLangSelect.dispatchEvent(new Event('change'));
+      }
+    }
   });
 }
 
@@ -1319,6 +1337,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const lang = langSelect.value;
     if (templates[lang]) {
       editor.value = templates[lang];
+    }
+
+    // Sync back to target language settings
+    const settingsMapping = {
+      'cpp': 'C++',
+      'java': 'Java',
+      'python': 'Python',
+      'javascript': 'JavaScript',
+      'go': 'Go',
+      'rust': 'Rust'
+    };
+    const settingsVal = settingsMapping[lang];
+    if (settingsVal && targetLanguage !== settingsVal) {
+      targetLanguage = settingsVal;
+      localStorage.setItem('ghost_target_lang', targetLanguage);
+      const targetLangSelEl = document.getElementById('targetLanguage');
+      if (targetLangSelEl) targetLangSelEl.value = targetLanguage;
+      updateSystemPrompt();
+      updateStatusBar();
     }
   });
 
