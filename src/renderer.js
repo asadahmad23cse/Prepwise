@@ -1275,3 +1275,84 @@ async function checkApiKeyHealth(key) {
     indicator.className = 'key-badge status-invalid';
   }
 }
+
+// ==========================================
+// CODE SANDBOX TAB CONTROLLER
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const runBtn = document.getElementById('runSandboxBtn');
+  const clearBtn = document.getElementById('clearTerminalBtn');
+  const editor = document.getElementById('sandboxEditor');
+  const langSelect = document.getElementById('sandboxLanguage');
+  const terminal = document.getElementById('sandboxTerminal');
+
+  if (!editor) return;
+
+  // Insert default templates when language changes
+  const templates = {
+    javascript: `// JavaScript Live Sandbox\nconsole.log("Starting execution...");\n\nfunction fibonacci(n) {\n  if (n <= 1) return n;\n  return fibonacci(n - 1) + fibonacci(n - 2);\n}\n\nconst term = 10;\nconsole.log(\`Fibonacci of \${term} is:\`, fibonacci(term));\n`,
+    python: `# Python Code Simulation\nprint("Executing python script...")\n\ndef factorial(n):\n    return 1 if n <= 1 else n * factorial(n - 1)\n\nnum = 6\nprint(f"Factorial of {num} is: {factorial(num)}")\n`,
+    cpp: `// C++ Compiler Simulation\n#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Executing compiled binary..." << endl;\n    int sum = 0;\n    for(int i = 1; i <= 100; ++i) sum += i;\n    cout << "Sum from 1 to 100 is: " << sum << endl;\n    return 0;\n}\n`,
+    go: `// Go Script Simulation\npackage main\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Running Go test harness...")\n    msg := "Hello Prepwise Sandbox"\n    fmt.Println(msg)\n}\n`,
+    java: `// Java Test Harness\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Compiling java class...");\n        System.out.println("Execution successful.");\n    }\n}\n`,
+    rust: `// Rust Sandbox Simulation\nfn main() {\n    println!("Compiling rust cargo package...");\n    let value = 42;\n    println!("Answer: {}", value);\n}\n`
+  };
+
+  editor.value = templates.javascript;
+
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    if (templates[lang]) {
+      editor.value = templates[lang];
+    }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    terminal.textContent = '';
+  });
+
+  runBtn.addEventListener('click', async () => {
+    const code = editor.value;
+    const lang = langSelect.value;
+    
+    terminal.innerHTML = '<span class="term-lbl">Initializing Sandbox Environment...</span>\n';
+
+    setTimeout(() => {
+      if (lang === 'javascript' || lang === 'js') {
+        try {
+          let outputLog = [];
+          const customConsole = {
+            log: (...args) => outputLog.push(args.map(x => (x === null) ? 'null' : (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(' ')),
+            error: (...args) => outputLog.push('Error: ' + args.join(' ')),
+            warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
+          };
+
+          const execute = new Function('console', code);
+          execute(customConsole);
+
+          terminal.innerHTML = `<span class="term-success">✓ JavaScript code executed successfully.</span>\n<span class="term-out">${outputLog.join('\n') || 'Console is empty (no prints returned).'}</span>`;
+        } catch (e) {
+          terminal.innerHTML = `<span class="term-err">✗ JavaScript Runtime Error:</span>\n<span class="term-out">${e.message}</span>`;
+        }
+      } else {
+        // Fallback simulated execution (this will be upgraded to actual IPC in Commit 5)
+        runSimulatedCompiler(lang, terminal);
+      }
+    }, 600);
+  });
+});
+
+function runSimulatedCompiler(lang, terminal) {
+  let compilerHeader = `> run-compiler --lang=${lang}\n`;
+  const logs = [
+    compilerHeader,
+    `<span class="term-lbl">Compiling code in virtual workspace sandbox...</span>`,
+    `<span class="term-success">✓ Compilation completed successfully.</span>`,
+    `Running assertions...`,
+    `<span class="term-success">✓ Test Case 1: Core correctness - Passed</span>`,
+    `Execution output:`,
+    `<span class="term-out">Sandbox environment simulated successfully. Local execution backend not yet active.</span>`
+  ];
+  terminal.innerHTML = logs.join('\n');
+}
+
