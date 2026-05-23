@@ -192,6 +192,34 @@
 
       <!-- TAB 6: CODE SANDBOX -->
       <div class="tab-pane hidden" id="sandboxTab">
+        <div class="section-card">
+          <h3>💻 Live Code Sandbox</h3>
+          <p class="section-desc">Write, edit, and execute code snippets in real-time. Use console.log() to print outputs.</p>
+          <div class="sandbox-controls">
+            <div class="sandbox-lang-wrapper">
+              <span class="sandbox-label">Language:</span>
+              <select id="sandboxLanguage" class="select-input">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="cpp">C++</option>
+                <option value="go">Go</option>
+                <option value="java">Java</option>
+                <option value="rust">Rust</option>
+              </select>
+            </div>
+            <button class="btn-primary" id="runSandboxBtn">▶ Run Code</button>
+          </div>
+          <div class="editor-container">
+            <textarea id="sandboxEditor" spellcheck="false" placeholder="Write code here..."></textarea>
+          </div>
+          <div class="terminal-container">
+            <div class="terminal-header">
+              <span class="terminal-title">CONSOLE OUTPUT</span>
+              <button class="clear-terminal-btn" id="clearTerminalBtn">Clear Output</button>
+            </div>
+            <pre id="sandboxTerminal" class="code-output-terminal"></pre>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 4: SETTINGS -->
