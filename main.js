@@ -1,5 +1,7 @@
 const { app, BrowserWindow, globalShortcut, ipcMain, screen, desktopCapturer } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const { exec } = require('child_process');
 const stealth = require('./stealth');
 
 // Rename process for Task Manager concealment
@@ -193,6 +195,78 @@ ipcMain.handle('get-stealth-status', () => ({
   taskManager: true,
   cursor: true,
 }));
+
+ipcMain.handle('run-local-code', async (event, { language, code }) => {
+  return new Promise((resolve) => {
+    let filename = '';
+    let command = '';
+
+    const tempDir = path.join(app.getPath('userData'), 'temp');
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+
+    if (language === 'javascript' || language === 'js') {
+      filename = path.join(tempDir, `sandbox_${Date.now()}.js`);
+      command = `node "${filename}"`;
+    } else if (language === 'python' || language === 'py') {
+      filename = path.join(tempDir, `sandbox_${Date.now()}.py`);
+      command = `python "${filename}"`;
+    } else if (language === 'cpp') {
+      filename = path.join(tempDir, `sandbox_${Date.now()}.cpp`);
+      const binName = path.join(tempDir, `sandbox_${Date.now()}.exe`);
+      command = `g++ "${filename}" -o "${binName}" && "${binName}"`;
+    } else if (language === 'go') {
+      filename = path.join(tempDir, `sandbox_${Date.now()}.go`);
+      command = `go run "${filename}"`;
+    } else if (language === 'java') {
+      filename = path.join(tempDir, `Main_${Date.now()}.java`);
+      const className = path.basename(filename, '.java');
+      const javaCode = code.replace(/public class Main/g, `public class ${className}`);
+      fs.writeFileSync(filename, javaCode, 'utf8');
+      command = `javac "${filename}" && java -cp "${tempDir}" ${className}`;
+      
+      exec(command, { timeout: 5000 }, (error, stdout, stderr) => {
+        try {
+          fs.unlinkSync(filename);
+          fs.unlinkSync(path.join(tempDir, `${className}.class`));
+        } catch(e){}
+        resolve({
+          success: !error,
+          stdout: stdout,
+          stderr: stderr || (error ? error.message : '')
+        });
+      });
+      return;
+    } else {
+      resolve({ success: false, stderr: `Language ${language} not supported for local execution.` });
+      return;
+    }
+
+    try {
+      fs.writeFileSync(filename, code, 'utf8');
+    } catch (e) {
+      resolve({ success: false, stderr: `Failed to write temp code file: ${e.message}` });
+      return;
+    }
+
+    exec(command, { timeout: 5000 }, (error, stdout, stderr) => {
+      try {
+        if (fs.existsSync(filename)) fs.unlinkSync(filename);
+        if (language === 'cpp') {
+          const binPattern = filename.replace('.cpp', '.exe');
+          if (fs.existsSync(binPattern)) fs.unlinkSync(binPattern);
+        }
+      } catch (e) {}
+
+      resolve({
+        success: !error,
+        stdout: stdout,
+        stderr: stderr || (error ? error.message : '')
+      });
+    });
+  });
+});
 
 ipcMain.on('set-opacity', (event, value) => {
   if (mainWindow) mainWindow.setOpacity(value);

@@ -23,4 +23,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   // Desktop audio sources for voice capture
   getDesktopSources: () => ipcRenderer.invoke('get-desktop-sources'),
+
+  // Code execution
+  runLocalCode: (language, code) => ipcRenderer.invoke('run-local-code', { language, code }),
 });
