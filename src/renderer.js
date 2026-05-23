@@ -636,6 +636,11 @@ function appendMessage(role, text) {
     const renderer = new marked.Renderer();
     const originalCode = renderer.code.bind(renderer);
     renderer.code = (code, language, escaped) => {
+      if (language === 'mermaid') {
+        return `<div class="mermaid-container" style="background:rgba(10,10,25,0.4); border:1px solid var(--border); border-radius:6px; padding:12px; margin:10px 0; overflow-x:auto;">
+                  <div class="mermaid">${code}</div>
+                </div>`;
+      }
       const html = originalCode(code, language, escaped);
       const isRunnable = ['js', 'javascript', 'py', 'python', 'cpp', 'c++', 'go', 'java'].includes(language ? language.toLowerCase() : '');
       const runBtn = isRunnable ? `<button class="run-code-btn" onclick="runSandboxCode(this)">Run Simulation</button>` : '';
@@ -662,6 +667,16 @@ function appendMessage(role, text) {
   if (typeof Prism !== 'undefined') {
     Prism.highlightAllUnder(content);
   }
+  
+  // Trigger Mermaid rendering
+  if (typeof mermaid !== 'undefined') {
+    try {
+      mermaid.init(undefined, content.querySelectorAll('.mermaid'));
+    } catch (e) {
+      console.error('[Mermaid] Render failed:', e);
+    }
+  }
+
   msg.appendChild(avatar); msg.appendChild(content);
   chatMessages.appendChild(msg);
   msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
