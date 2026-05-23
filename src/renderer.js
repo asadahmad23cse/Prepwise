@@ -1317,26 +1317,49 @@ document.addEventListener('DOMContentLoaded', () => {
     
     terminal.innerHTML = '<span class="term-lbl">Initializing Sandbox Environment...</span>\n';
 
-    setTimeout(() => {
-      if (lang === 'javascript' || lang === 'js') {
+    setTimeout(async () => {
+      if (window.electronAPI && window.electronAPI.runLocalCode) {
+        terminal.innerHTML += '<span class="term-lbl">Executing on native host runner...</span>\n';
         try {
-          let outputLog = [];
-          const customConsole = {
-            log: (...args) => outputLog.push(args.map(x => (x === null) ? 'null' : (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(' ')),
-            error: (...args) => outputLog.push('Error: ' + args.join(' ')),
-            warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
-          };
-
-          const execute = new Function('console', code);
-          execute(customConsole);
-
-          terminal.innerHTML = `<span class="term-success">✓ JavaScript code executed successfully.</span>\n<span class="term-out">${outputLog.join('\n') || 'Console is empty (no prints returned).'}</span>`;
+          const res = await window.electronAPI.runLocalCode(lang, code);
+          if (res.success) {
+            terminal.innerHTML = `<span class="term-success">✓ Code execution completed successfully.</span>\n<span class="term-out">${res.stdout || 'Process finished with no output.'}</span>`;
+          } else {
+            const errStr = res.stderr || '';
+            const isMissingCompiler = errStr.includes('is not recognized') || errStr.includes('cannot find') || errStr.includes('ENOENT') || errStr.includes('not found') || errStr.includes('g++: error') || errStr.includes('not recognized as an internal or external command');
+            
+            if (isMissingCompiler) {
+              terminal.innerHTML = `<span class="term-lbl">⚠️ Local compiler/interpreter for "${lang}" not found on PATH.</span>\n<span class="term-lbl">Falling back to virtual simulation run...</span>\n`;
+              setTimeout(() => {
+                runSimulatedCompiler(lang, terminal);
+              }, 800);
+            } else {
+              terminal.innerHTML = `<span class="term-err">✗ Execution Runtime/Compile Error:</span>\n<span class="term-out" style="color:#ef4444;">${errStr}</span>`;
+            }
+          }
         } catch (e) {
-          terminal.innerHTML = `<span class="term-err">✗ JavaScript Runtime Error:</span>\n<span class="term-out">${e.message}</span>`;
+          terminal.innerHTML = `<span class="term-err">✗ IPC Bridge Failure:</span>\n<span class="term-out">${e.message}</span>`;
         }
       } else {
-        // Fallback simulated execution (this will be upgraded to actual IPC in Commit 5)
-        runSimulatedCompiler(lang, terminal);
+        if (lang === 'javascript' || lang === 'js') {
+          try {
+            let outputLog = [];
+            const customConsole = {
+              log: (...args) => outputLog.push(args.map(x => (x === null) ? 'null' : (typeof x === 'object' ? JSON.stringify(x) : String(x))).join(' ')),
+              error: (...args) => outputLog.push('Error: ' + args.join(' ')),
+              warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
+            };
+
+            const execute = new Function('console', code);
+            execute(customConsole);
+
+            terminal.innerHTML = `<span class="term-success">✓ JavaScript code executed successfully.</span>\n<span class="term-out">${outputLog.join('\n') || 'Console is empty (no prints returned).'}</span>`;
+          } catch (e) {
+            terminal.innerHTML = `<span class="term-err">✗ JavaScript Runtime Error:</span>\n<span class="term-out">${e.message}</span>`;
+          }
+        } else {
+          runSimulatedCompiler(lang, terminal);
+        }
       }
     }, 600);
   });
