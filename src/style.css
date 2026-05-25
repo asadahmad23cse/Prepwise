@@ -1308,9 +1308,56 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 /* ==========================================
    Navigation Tabs & Quick Action Pills
    ========================================== */
-.nav-btn { font-size: 15px; padding: 4px 8px; width: auto; height: 28px; border-radius: var(--radius-xs); display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border: 1px solid transparent; transition: all 0.2s ease; }
-.nav-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--border); }
-.nav-btn.active { background: hsla(258, 90%, 66%, 0.25); border-color: var(--accent-purple); box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); color: white; }
+
+.nav-btn {
+  font-size: 13px;
+  padding: 5px 10px;
+  width: auto;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+  transform: translateY(-1px);
+}
+
+.nav-btn.active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(34, 211, 238, 0.1));
+  border-color: rgba(139, 92, 246, 0.45);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+  transition: all 0.25s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.nav-btn.active::after {
+  width: 70%;
+  opacity: 1;
+}
 
 .app-body { flex: 1; overflow: hidden; position: relative; display: flex; flex-direction: column; }
 .tab-pane { flex: 1; display: flex; flex-direction: column; overflow-y: auto; height: 100%; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
