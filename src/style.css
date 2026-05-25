@@ -1715,69 +1715,91 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  gap: 10px;
+  margin-bottom: 16px;
+  gap: 12px;
+  background: hsla(240, 25%, 12%, 0.4);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
 }
+
 .sandbox-lang-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
+
 .sandbox-label {
   font-size: 12px;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
 }
+
 .editor-container {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  position: relative;
 }
+
 #sandboxEditor {
   width: 100%;
-  height: 220px;
-  background: #02040a;
+  height: 240px;
+  background: #02020a;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  color: #39d353; /* Matrix code color */
+  color: #a78bfa; /* Modern purple text code */
   font-family: var(--font-mono);
   font-size: 12px;
-  padding: 12px;
-  line-height: 1.5;
+  padding: 14px;
+  line-height: 1.6;
   resize: vertical;
   outline: none;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  transition: all 0.25s ease;
+  cursor: none;
 }
+
 #sandboxEditor:focus {
   border-color: var(--accent-purple);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(139, 92, 246, 0.25);
 }
+
 .terminal-container {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #030712;
-  padding: 10px 14px;
+  background: #020206;
+  padding: 12px 16px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
 }
+
 .terminal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 6px;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
 }
+
 .terminal-title {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
+
 .clear-terminal-btn {
   background: transparent;
   border: none;
-  color: var(--text-muted);
-  font-size: 10px;
-  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: none;
+  transition: color 0.2s;
 }
+
 .clear-terminal-btn:hover {
-  color: var(--text-primary);
+  color: var(--accent-pink);
 }
 
 /* ==========================================
