@@ -973,7 +973,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Override system prompt with concise interview coach and resume context
 updateSystemPrompt = function() {
   const basePrompt = `======================================================================
-PREMIUM STEALTH AI INTERVIEW ASSISTANT v2.0
+PREMIUM STEALTH AI INTERVIEW ASSISTANT v2.3.0
 ======================================================================
 You are operating inside an elite examination and interview stealth assistant. Your primary objective is to provide high-density, flawless, and ultra-concise technical guidance.
 
