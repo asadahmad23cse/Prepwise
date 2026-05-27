@@ -1943,4 +1943,107 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   background: rgba(255, 255, 255, 0.01);
 }
 
+/* ==========================================
+   Premium Custom Modal & Custom Tooltip Styles
+   ========================================== */
+.custom-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 0, 15, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+  padding: 20px;
+}
+.custom-modal.hidden {
+  display: none !important;
+}
+.custom-modal-content {
+  background: linear-gradient(135deg, hsla(240, 25%, 12%, 0.95), hsla(240, 30%, 6%, 0.98));
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.15);
+  animation: modalScaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+@keyframes modalScaleUp {
+  from { transform: scale(0.9) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+.custom-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom-modal-title {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--accent-violet);
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+}
+.custom-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: none;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.custom-modal-close:hover {
+  color: #ef4444;
+}
+.custom-modal-body {
+  padding: 20px;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.custom-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Premium Tooltip System */
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background: hsla(240, 25%, 10%, 0.95);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 

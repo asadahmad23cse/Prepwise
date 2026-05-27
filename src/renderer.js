@@ -1299,13 +1299,22 @@ async function checkApiKeyHealth(key) {
     if (res.ok) {
       indicator.textContent = '✓ Key Valid';
       indicator.className = 'key-badge status-valid';
+      if (typeof showPremiumModal === 'function') {
+        showPremiumModal('API Key Validated', '✨ <strong>Success!</strong> Your Gemini API key is active. Neural link established. The assistant is ready to process queries.', 'Excellent');
+      }
     } else {
       indicator.textContent = '✗ Invalid Key';
       indicator.className = 'key-badge status-invalid';
+      if (typeof showPremiumModal === 'function') {
+        showPremiumModal('API Verification Failed', '⚠️ <strong>Invalid API Key!</strong> The Gemini API returned an authorization error. Please verify your API key and try again.', 'Retry');
+      }
     }
   } catch (e) {
     indicator.textContent = '✗ Connection Error';
     indicator.className = 'key-badge status-invalid';
+    if (typeof showPremiumModal === 'function') {
+      showPremiumModal('Connection Error', '🔌 <strong>Network Error!</strong> Could not reach Google API endpoint. Please check your internet connection.', 'Acknowledge');
+    }
   }
 }
 
@@ -1469,5 +1478,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Premium Modal Control
+function showPremiumModal(title, message, buttonText, onConfirm) {
+  const modal = document.getElementById('premiumModal');
+  const titleEl = document.getElementById('premiumModalTitle');
+  const bodyEl = document.getElementById('premiumModalBody');
+  const actionBtn = document.getElementById('premiumModalActionBtn');
+  const closeBtn = document.getElementById('premiumModalCloseBtn');
+
+  if (!modal || !titleEl || !bodyEl || !actionBtn || !closeBtn) return;
+
+  titleEl.textContent = title.toUpperCase();
+  bodyEl.innerHTML = message;
+  actionBtn.textContent = (buttonText || 'ACKNOWLEDGE').toUpperCase();
+
+  modal.classList.remove('hidden');
+
+  const close = () => {
+    modal.classList.add('hidden');
+    actionBtn.onclick = null;
+    closeBtn.onclick = null;
+  };
+
+  actionBtn.onclick = () => {
+    close();
+    if (onConfirm) onConfirm();
+  };
+
+  closeBtn.onclick = close;
+}
 
 

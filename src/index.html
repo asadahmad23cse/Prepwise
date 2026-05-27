@@ -32,14 +32,14 @@
         <div class="stealth-badge" id="stealthBadge">● GHOST STEALTH</div>
       </div>
       <div class="title-bar-right">
-        <button class="icon-btn nav-btn active" data-tab="chatTab" title="Live Interview Chat">💬</button>
-        <button class="icon-btn nav-btn" data-tab="modesTab" title="Interview Coach & Resume">🧠</button>
-        <button class="icon-btn nav-btn" data-tab="stealthTab" title="Stealth Guard & Voice">🛡️</button>
-        <button class="icon-btn nav-btn" data-tab="videoTab" title="Video Body Language Analysis">🎥</button>
-        <button class="icon-btn nav-btn" data-tab="sandboxTab" title="Interactive Code Sandbox">💻</button>
-        <button class="icon-btn nav-btn" data-tab="cheatSheetsTab" title="Interview Cheat Sheets">📚</button>
-        <button class="icon-btn nav-btn" data-tab="settingsTab" title="Settings & Keys">⚙️</button>
-        <button class="icon-btn" id="minimizeBtn" title="Hide (Ctrl+Shift+H)">—</button>
+        <button class="icon-btn nav-btn active" data-tab="chatTab" data-tooltip="Live Interview Chat">💬</button>
+        <button class="icon-btn nav-btn" data-tab="modesTab" data-tooltip="Interview Coach & Resume">🧠</button>
+        <button class="icon-btn nav-btn" data-tab="stealthTab" data-tooltip="Stealth Guard & Voice">🛡️</button>
+        <button class="icon-btn nav-btn" data-tab="videoTab" data-tooltip="Video Body Language Analysis">🎥</button>
+        <button class="icon-btn nav-btn" data-tab="sandboxTab" data-tooltip="Interactive Code Sandbox">💻</button>
+        <button class="icon-btn nav-btn" data-tab="cheatSheetsTab" data-tooltip="Interview Cheat Sheets">📚</button>
+        <button class="icon-btn nav-btn" data-tab="settingsTab" data-tooltip="Settings & Keys">⚙️</button>
+        <button class="icon-btn" id="minimizeBtn" data-tooltip="Hide (Ctrl+Shift+H)">—</button>
       </div>
     </div>
     <div class="app-body">
@@ -147,7 +147,7 @@
       <!-- TAB 3: STEALTH GUARD & VOICE -->
       <div class="tab-pane hidden" id="stealthTab">
         <div class="stealth-panel" id="stealthPanel">
-          <div class="stealth-row"><span class="stealth-icon">🖥</span><span class="stealth-label">Screen Share Guard</span><span class="stealth-dot dot-active" id="st-screen" title="Screen share hidden">●</span></div>
+          <div class="stealth-row"><span class="stealth-icon">🖥</span><span class="stealth-label">Screen Share Guard</span><span class="stealth-dot dot-active" id="st-screen" data-tooltip="Screen share hidden">●</span></div>
           <div class="stealth-row"><span class="stealth-icon">📌</span><span class="stealth-label">Taskbar Conceal</span><span class="stealth-dot dot-active" id="st-taskbar">●</span></div>
           <div class="stealth-row"><span class="stealth-icon">⌨</span><span class="stealth-label">Alt+Tab Cloak</span><span class="stealth-dot dot-active" id="st-alttab">●</span></div>
           <div class="stealth-row"><span class="stealth-icon">📊</span><span class="stealth-label">Task Manager Host</span><span class="stealth-dot dot-active" id="st-taskmgr">●</span></div>
@@ -408,6 +408,22 @@
         <div class="status-item"><span id="latency-val">18ms</span></div>
       </div>
     </div>
+    <!-- PREMIUM CUSTOM MODAL -->
+    <div id="premiumModal" class="custom-modal hidden">
+      <div class="custom-modal-content">
+        <div class="custom-modal-header">
+          <span class="custom-modal-title" id="premiumModalTitle">SYSTEM NOTIFICATION</span>
+          <button class="custom-modal-close" id="premiumModalCloseBtn">&times;</button>
+        </div>
+        <div class="custom-modal-body" id="premiumModalBody">
+          Welcome to Prepwise AI Assistant.
+        </div>
+        <div class="custom-modal-footer">
+          <button class="btn-primary" id="premiumModalActionBtn">ACKNOWLEDGE</button>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class="loading-overlay hidden" id="loadingOverlay"><div class="spinner"></div></div>
   <script src="marked.min.js"></script>
