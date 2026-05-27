@@ -165,7 +165,16 @@
             <span>Input Source:</span>
             <label><input type="radio" name="voiceSource" value="system" checked> Meeting Audio (System)</label>
             <label><input type="radio" name="voiceSource" value="mic"> Personal Microphone</label>
-          <div class="voice-live-box" id="voiceLiveBox"><span class="voice-live-label">LIVE AUDIO:</span><span class="voice-live-text" id="voiceLiveText">Waiting for speech...</span></div>
+          </div>
+          <div class="voice-live-box" id="voiceLiveBox">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span class="voice-live-label">LIVE AUDIO:</span>
+              <span class="voice-live-text" id="voiceLiveText">Waiting for speech...</span>
+            </div>
+            <div class="waveform-canvas-wrapper" style="position:relative; width:100%; height:45px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.05); border-radius:4px; overflow:hidden;">
+              <canvas id="voiceWaveformCanvas" style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
+            </div>
+          </div>
           <div class="voice-transcript-log" id="voiceTranscriptLog"></div>
         </div>
       </div>

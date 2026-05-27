@@ -797,15 +797,24 @@ async function startVoice() {
       return;
     }
 
+    // Setup AudioContext & Analyser for both Mic and System sources
+    voiceAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var audioOnlyStream = new MediaStream(audioTracks);
+    var source = voiceAudioContext.createMediaStreamSource(audioOnlyStream);
+    var analyser = voiceAudioContext.createAnalyser();
+    analyser.fftSize = 256;
+    source.connect(analyser);
+
     if (!isMic) {
       var videoTracks = voiceStream.getVideoTracks();
       videoTracks.forEach(function(t) { t.stop(); });
-
-      voiceAudioContext = new AudioContext();
-      var audioOnlyStream = new MediaStream(audioTracks);
-      var source = voiceAudioContext.createMediaStreamSource(audioOnlyStream);
       var dest = voiceAudioContext.createMediaStreamDestination();
       source.connect(dest);
+    }
+
+    // Trigger real-time canvas animation
+    if (typeof drawWaveform === 'function') {
+      drawWaveform(analyser);
     }
 
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1507,6 +1516,115 @@ function showPremiumModal(title, message, buttonText, onConfirm) {
   };
 
   closeBtn.onclick = close;
+}
+
+let waveformAnimationId = null;
+
+function drawWaveform(analyser) {
+  const canvas = document.getElementById('voiceWaveformCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  
+  // Set high DPI support
+  const width = canvas.offsetWidth;
+  const height = canvas.offsetHeight;
+  canvas.width = width * window.devicePixelRatio;
+  canvas.height = height * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+  const bufferLength = analyser ? analyser.frequencyBinCount : 128;
+  const dataArray = new Uint8Array(bufferLength);
+
+  let phase = 0;
+
+  function render() {
+    if (!isCapturingVoice) {
+      // Draw flat glowing line
+      ctx.clearRect(0, 0, width, height);
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+      ctx.lineTo(width, height / 2);
+      ctx.strokeStyle = 'rgba(34, 211, 238, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      waveformAnimationId = null;
+      return;
+    }
+
+    waveformAnimationId = requestAnimationFrame(render);
+
+    if (analyser) {
+      analyser.getByteTimeDomainData(dataArray);
+    }
+
+    ctx.clearRect(0, 0, width, height);
+    
+    // Draw sci-fi style grid lines in the background
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < width; i += 20) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, height);
+      ctx.stroke();
+    }
+
+    // Draw the soundwave
+    ctx.lineWidth = 2;
+    // Premium neon gradient: Cyan to Purple to Pink
+    const gradient = ctx.createLinearGradient(0, 0, width, 0);
+    gradient.addColorStop(0, 'var(--accent-cyan)');
+    gradient.addColorStop(0.5, 'var(--accent-purple)');
+    gradient.addColorStop(1, 'var(--accent-pink)');
+    ctx.strokeStyle = gradient;
+    ctx.beginPath();
+
+    const sliceWidth = width / bufferLength;
+    let x = 0;
+
+    // Calculate overall audio volume to add a pulsing glow
+    let sum = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      let v = analyser ? dataArray[i] / 128.0 : 1.0;
+      // If no analyser, fake it with a running sine wave
+      if (!analyser) {
+        v = 1.0 + Math.sin(i * 0.15 + phase) * 0.1 * (Math.random() * 0.2 + 0.9);
+      }
+      let y = v * (height / 2);
+
+      // Add small ambient oscillations if quiet
+      if (analyser) {
+        const diff = Math.abs(dataArray[i] - 128);
+        sum += diff;
+        // if quiet, inject slight cyber jitter
+        if (diff < 2) {
+          y += Math.sin(i * 0.3 + phase) * 1.5;
+        }
+      } else {
+        sum += 10;
+      }
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    // Glow effect
+    ctx.shadowBlur = 10;
+    const avgDiff = sum / bufferLength;
+    ctx.shadowColor = avgDiff > 5 ? 'var(--accent-cyan)' : 'var(--accent-purple)';
+    ctx.stroke();
+    ctx.shadowBlur = 0; // Reset shadow for performance
+
+    phase += 0.15; // Advance phase for fake wave / idle jitter
+  }
+
+  render();
 }
 
 
