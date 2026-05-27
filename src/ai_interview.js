@@ -101,5 +101,55 @@ let targetCompany = "General";
 function setTargetCompany(company) {
   targetCompany = company;
   console.log("[Interview Coach] Target Company set to:", company);
+  
+  // Dynamic color morphing based on selected target company
+  const root = document.documentElement;
+  const companyThemes = {
+    General: {
+      '--accent-purple': '#8b5cf6',
+      '--accent-violet': '#c084fc',
+      '--accent-cyan': '#22d3ee'
+    },
+    Google: {
+      '--accent-purple': '#4285f4', // Google Blue
+      '--accent-violet': '#ea4335', // Google Red
+      '--accent-cyan': '#34a853'    // Google Green
+    },
+    Meta: {
+      '--accent-purple': '#0081fb', // Meta Blue
+      '--accent-violet': '#00c6ff', // Meta Light Blue
+      '--accent-cyan': '#00f2fe'    // Meta Teal
+    },
+    Amazon: {
+      '--accent-purple': '#ff9900', // Amazon Orange
+      '--accent-violet': '#ffb700', // Amazon Gold
+      '--accent-cyan': '#146eb4'    // Amazon Blue
+    },
+    Netflix: {
+      '--accent-purple': '#e50914', // Netflix Red
+      '--accent-violet': '#b81d24', // Netflix Dark Red
+      '--accent-cyan': '#f8fafc'    // Ice White
+    }
+  };
+
+  const theme = companyThemes[company] || companyThemes.General;
+  Object.keys(theme).forEach(key => {
+    root.style.setProperty(key, theme[key]);
+  });
+
+  // Dynamically change ambient background colors to match selected theme
+  const bgOrb1 = document.querySelector('.bg-orb-1');
+  const bgOrb2 = document.querySelector('.bg-orb-2');
+  const bgOrb3 = document.querySelector('.bg-orb-3');
+  
+  if (bgOrb1) bgOrb1.style.backgroundColor = theme['--accent-purple'];
+  if (bgOrb2) bgOrb2.style.backgroundColor = theme['--accent-cyan'];
+  if (bgOrb3) bgOrb3.style.backgroundColor = theme['--accent-violet'];
+
+  // Add system feedback
+  if (typeof appendMessage === 'function') {
+    appendMessage('assistant', `Target interview engine re-calibrated for **${company}**. UI accents and neural prompts optimized.`);
+  }
+
   if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
 }

@@ -5,6 +5,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+@property --accent-purple {
+  syntax: '<color>';
+  initial-value: #8b5cf6;
+  inherits: true;
+}
+@property --accent-violet {
+  syntax: '<color>';
+  initial-value: #c084fc;
+  inherits: true;
+}
+@property --accent-cyan {
+  syntax: '<color>';
+  initial-value: #22d3ee;
+  inherits: true;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -12,6 +28,8 @@
 }
 
 :root {
+  /* Smooth morph transition for accent colors */
+  transition: --accent-purple 0.8s ease, --accent-violet 0.8s ease, --accent-cyan 0.8s ease;
   /* Core Palette - Premium Cyberpunk Obsidian & Indigo */
   --bg-base: #03001e;
   --bg-glass: hsla(240, 30%, 6%, 0.85);
