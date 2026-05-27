@@ -1384,7 +1384,14 @@ document.addEventListener('DOMContentLoaded', () => {
   runBtn.addEventListener('click', async () => {
     const code = editor.value;
     const lang = langSelect.value;
+    const badge = document.getElementById('sandboxExecutionBadge');
     
+    if (badge) {
+      badge.classList.add('hidden');
+      badge.className = 'execution-badge';
+    }
+    
+    const startTime = performance.now();
     terminal.innerHTML = '<span class="term-lbl">Initializing Sandbox Environment...</span>\n';
 
     setTimeout(async () => {
@@ -1392,8 +1399,16 @@ document.addEventListener('DOMContentLoaded', () => {
         terminal.innerHTML += '<span class="term-lbl">Executing on native host runner...</span>\n';
         try {
           const res = await window.electronAPI.runLocalCode(lang, code);
+          const endTime = performance.now();
+          const duration = Math.round(endTime - startTime);
+          
           if (res.success) {
             terminal.innerHTML = `<span class="term-success">✓ Code execution completed successfully.</span>\n<span class="term-out">${res.stdout || 'Process finished with no output.'}</span>`;
+            if (badge) {
+              badge.textContent = `${duration}ms`;
+              badge.className = 'execution-badge success';
+              badge.classList.remove('hidden');
+            }
           } else {
             const errStr = res.stderr || '';
             const isMissingCompiler = errStr.includes('is not recognized') || errStr.includes('cannot find') || errStr.includes('ENOENT') || errStr.includes('not found') || errStr.includes('g++: error') || errStr.includes('not recognized as an internal or external command');
@@ -1405,6 +1420,11 @@ document.addEventListener('DOMContentLoaded', () => {
               }, 800);
             } else {
               terminal.innerHTML = `<span class="term-err">✗ Execution Runtime/Compile Error:</span>\n<span class="term-out" style="color:#ef4444;">${errStr}</span>`;
+              if (badge) {
+                badge.textContent = 'ERROR';
+                badge.className = 'execution-badge err';
+                badge.classList.remove('hidden');
+              }
             }
           }
         } catch (e) {
@@ -1422,10 +1442,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const execute = new Function('console', code);
             execute(customConsole);
+            const endTime = performance.now();
+            const duration = Math.round(endTime - startTime);
 
             terminal.innerHTML = `<span class="term-success">✓ JavaScript code executed successfully.</span>\n<span class="term-out">${outputLog.join('\n') || 'Console is empty (no prints returned).'}</span>`;
+            if (badge) {
+              badge.textContent = `${duration}ms`;
+              badge.className = 'execution-badge success';
+              badge.classList.remove('hidden');
+            }
           } catch (e) {
             terminal.innerHTML = `<span class="term-err">✗ JavaScript Runtime Error:</span>\n<span class="term-out">${e.message}</span>`;
+            if (badge) {
+              badge.textContent = 'ERROR';
+              badge.className = 'execution-badge err';
+              badge.classList.remove('hidden');
+            }
           }
         } else {
           runSimulatedCompiler(lang, terminal);
@@ -1447,6 +1479,12 @@ function runSimulatedCompiler(lang, terminal) {
     `<span class="term-out">Sandbox environment simulated successfully. Local execution backend not yet active.</span>`
   ];
   terminal.innerHTML = logs.join('\n');
+  const badge = document.getElementById('sandboxExecutionBadge');
+  if (badge) {
+    badge.textContent = '145ms (simulated)';
+    badge.className = 'execution-badge success';
+    badge.classList.remove('hidden');
+  }
 }
 
 // ==========================================

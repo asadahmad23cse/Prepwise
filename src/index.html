@@ -230,7 +230,10 @@
           <div class="terminal-container">
             <div class="terminal-header">
               <span class="terminal-title">CONSOLE OUTPUT</span>
-              <button class="clear-terminal-btn" id="clearTerminalBtn">Clear Output</button>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span id="sandboxExecutionBadge" class="execution-badge hidden">0ms</span>
+                <button class="clear-terminal-btn" id="clearTerminalBtn">Clear Output</button>
+              </div>
             </div>
             <pre id="sandboxTerminal" class="code-output-terminal"></pre>
           </div>
