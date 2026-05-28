@@ -1144,10 +1144,19 @@ function startMetricsFluctuation() {
   const elPace = document.getElementById('metric-pace');
   const valPace = document.getElementById('val-pace');
 
+  const elVol = document.getElementById('metric-volume');
+  const valVol = document.getElementById('val-volume');
   metricsInterval = setInterval(() => {
     const eye = Math.floor(Math.random() * 10) + 80; // 80% to 90%
     const posture = Math.floor(Math.random() * 15) + 65; // 65% to 80%
     const pace = Math.floor(Math.random() * 20) + 110; // 110 to 130 wpm
+    const vol = Math.floor(Math.random() * 20) + 40;
+    if (elVol) elVol.style.width = vol + '%';
+    if (valVol) {
+      if (vol > 55) valVol.textContent = 'Projected';
+      else if (vol > 45) valVol.textContent = 'Calm';
+      else valVol.textContent = 'Quiet';
+    }
     
     if (elEye) elEye.style.width = eye + '%';
     if (valEye) valEye.textContent = eye + '%';
