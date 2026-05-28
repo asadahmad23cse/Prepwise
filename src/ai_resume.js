@@ -127,3 +127,52 @@ async function generateStarFormat() {
     }
   }
 }
+
+// ==========================================
+// RESUME DRAG-AND-DROP FILE IMPORT
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const dropzone = document.getElementById('resumeDropzone');
+  const fileInput = document.getElementById('resumeFileInput');
+  const textInput = document.getElementById('resumeBulletsInput');
+  
+  if (dropzone && fileInput && textInput) {
+    dropzone.addEventListener('click', () => fileInput.click());
+    
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('dragover');
+    });
+    
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleResumeFile(files[0]);
+      }
+    });
+    
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        handleResumeFile(fileInput.files[0]);
+      }
+    });
+    
+    function handleResumeFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target.result;
+        textInput.value = text;
+        if (typeof showPremiumModal === 'function') {
+          showPremiumModal('RESUME PARSED', `Successfully imported <strong>${file.name}</strong> (${text.length} characters). Click "Optimize for ATS" to analyze.`, 'Acknowledge');
+        }
+      };
+      reader.readAsText(file);
+    }
+  }
+});
