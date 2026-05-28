@@ -10,3 +10,7 @@ Premium Stealth AI Interview Coach & Live Assistance Application designed for hi
 - **🛡️ Ghost Stealth Guard**: Invisible to screen sharing, Alt+Tab, and Task Manager.
 - **🏢 Company profiles**: Custom personas for Google, Amazon, Meta, Netflix.
 - **🎯 ATS Resume Optimizer**: Keyword parser, score gauge, and STAR method expansion.
+- **🎙️ Stealth Audio Guide (Earbud Mode)**: AI voice synthesizer reads solutions stealthily.
+- **📁 Drag-and-Drop Resume PDF/Text Parser**: Quick client-side file uploads to ATS.
+- **🎨 Interactive Sandbox Snippets**: One-click algorithm template loading.
+- **🌓 Tri-Theme Design System**: Obsidian, Cyberpunk Neon, and Camouflage.
