@@ -659,6 +659,17 @@ function appendMessage(role, text) {
                   <div class="mermaid">${code}</div>
                 </div>`;
       }
+      if (language === 'diff') {
+        const diffLines = code.split('\n').map(line => {
+          if (line.startsWith('+')) {
+            return `<div style="background:rgba(52,211,153,0.15); color:#a7f3d0; padding-left:4px;">${line}</div>`;
+          } else if (line.startsWith('-')) {
+            return `<div style="background:rgba(239,68,68,0.15); color:#fca5a5; padding-left:4px; text-decoration:line-through;">${line}</div>`;
+          }
+          return `<div>${line}</div>`;
+        }).join('');
+        return `<div class="code-container diff-viewer" style="background:rgba(15,23,42,0.85); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:10px; font-family:var(--font-mono); margin:10px 0; font-size:11px;">${diffLines}</div>`;
+      }
       const html = originalCode(code, language, escaped);
       const isRunnable = ['js', 'javascript', 'py', 'python', 'cpp', 'c++', 'go', 'java'].includes(language ? language.toLowerCase() : '');
       const runBtn = isRunnable ? `<button class="run-code-btn" onclick="runSandboxCode(this)">Run Simulation</button>` : '';
