@@ -2117,3 +2117,11 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   font-size: 11px;
   color: var(--text-secondary);
 }
+
+/* Console Formatting Colors */
+.console-null { color: var(--text-muted); font-style: italic; }
+.console-undefined { color: var(--text-dim); }
+.console-number { color: var(--accent-amber); }
+.console-boolean { color: var(--accent-pink); }
+.console-string { color: var(--accent-green); }
+.console-key { color: var(--accent-purple); font-weight: 600; }

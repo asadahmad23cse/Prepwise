@@ -1253,7 +1253,7 @@ window.runSandboxCode = function(btn) {
       try {
         let outputLog = [];
         const sandboxConsole = {
-          log: (...args) => outputLog.push(args.map(x => (x === null) ? 'null' : (typeof x === 'object' ? JSON.stringify(x, null, 1) : String(x))).join(' ')),
+          log: (...args) => outputLog.push(args.map(x => typeof formatConsoleValue === 'function' ? formatConsoleValue(x) : String(x)).join(' ')),
           error: (...args) => outputLog.push('Error: ' + args.join(' ')),
           warn: (...args) => outputLog.push('Warning: ' + args.join(' '))
         };
@@ -1751,3 +1751,25 @@ window.renderSystemDesignDiagram = function(type) {
     renderer.innerHTML = `<p style="color:var(--accent-pink);">Failed to render Mermaid diagram.</p>`;
   }
 };
+
+// ==========================================
+// CONSOLE VALUE FORMATTER FOR SANDBOX
+// ==========================================
+function formatConsoleValue(val) {
+  if (val === null) return '<span class="console-null">null</span>';
+  if (val === undefined) return '<span class="console-undefined">undefined</span>';
+  if (typeof val === 'number') return `<span class="console-number">${val}</span>`;
+  if (typeof val === 'boolean') return `<span class="console-boolean">${val}</span>`;
+  if (typeof val === 'string') return `<span class="console-string">"${val}"</span>`;
+  if (typeof val === 'object') {
+    try {
+      const keys = Object.keys(val);
+      if (keys.length === 0) return JSON.stringify(val);
+      let content = keys.map(k => `  <span class="console-key">${k}</span>: ${typeof val[k] === 'object' ? '{...}' : formatConsoleValue(val[k])}`).join('\n');
+      return `<span class="console-object-toggle" style="color:var(--accent-cyan); font-weight:500;">▼ Object {${keys.length} keys}</span>\n<div class="console-object-body" style="padding-left:14px; border-left:1px dashed rgba(255,255,255,0.1); margin-top:4px; font-family:var(--font-mono);">${content}</div>`;
+    } catch (e) {
+      return String(val);
+    }
+  }
+  return String(val);
+}
