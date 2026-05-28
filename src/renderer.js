@@ -1820,3 +1820,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================
+// BEHAVIORAL QUESTION LOADER
+// ==========================================
+window.loadBehavioralQuestion = function(questionText) {
+  const chatTabBtn = document.querySelector('button[data-tab="chatTab"]');
+  if (chatTabBtn) chatTabBtn.click();
+  const textarea = document.getElementById('userInput');
+  if (textarea) {
+    textarea.value = questionText;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+    if (typeof showPremiumModal === 'function') {
+      showPremiumModal('QUESTION LOADED', `Loaded behavior prompt into Live Chat: <br><em>"${questionText}"</em>`, 'Start');
+    }
+  }
+};
