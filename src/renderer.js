@@ -1773,3 +1773,41 @@ function formatConsoleValue(val) {
   }
   return String(val);
 }
+
+// ==========================================
+// SANDBOX SNIPPETS LOADER
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const snippetSelect = document.getElementById('sandboxSnippetSelect');
+  const editor = document.getElementById('sandboxEditor');
+  const langSelect = document.getElementById('sandboxLanguage');
+  
+  if (snippetSelect && editor && langSelect) {
+    const snippets = {
+      binarysearch: {
+        javascript: `// Binary Search (JS)\nfunction binarySearch(arr, target) {\n  let left = 0, right = arr.length - 1;\n  while (left <= right) {\n    let mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\nconsole.log("Binary Search output for [1,3,5,7,9,11], target 7:", binarySearch([1, 3, 5, 7, 9, 11], 7));`,
+        python: `# Binary Search (Python)\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target: return mid\n        elif arr[mid] < target: left = mid + 1\n        else: right = mid - 1\n    return -1\nprint("Binary Search index:", binary_search([1, 3, 5, 7, 9, 11], 7))`
+      },
+      quicksort: {
+        javascript: `// Quick Sort (JS)\nfunction quickSort(arr) {\n  if (arr.length <= 1) return arr;\n  const pivot = arr[arr.length - 1];\n  const left = [], right = [];\n  for (let i = 0; i < arr.length - 1; i++) {\n    if (arr[i] < pivot) left.push(arr[i]);\n    else right.push(arr[i]);\n  }\n  return [...quickSort(left), pivot, ...quickSort(right)];\n}\nconsole.log("Quick Sort output:", quickSort([6, 2, 8, 4, 1, 9, 3]));`
+      },
+      dijkstra: {
+        javascript: `// Dijkstra Algorithm (JS)\nfunction dijkstra(graph, start) {\n  const distances = {};\n  const visited = new Set();\n  for (let node in graph) distances[node] = Infinity;\n  distances[start] = 0;\n  while (true) {\n    let currNode = null, minDistance = Infinity;\n    for (let node in distances) {\n      if (!visited.has(node) && distances[node] < minDistance) {\n        currNode = node; minDistance = distances[node];\n      }\n    }\n    if (!currNode) break;\n    visited.add(currNode);\n    for (let neighbor in graph[currNode]) {\n      let newDist = distances[currNode] + graph[currNode][neighbor];\n      if (newDist < distances[neighbor]) distances[neighbor] = newDist;\n    }\n  }\n  return distances;\n}\nconst graph = {A: {B: 4, C: 2}, B: {C: 1, D: 5}, C: {D: 8}, D: {}};\nconsole.log("Dijkstra Shortest Distances:", dijkstra(graph, 'A'));`
+      },
+      bfs: {
+        javascript: `// BFS Graph Traversal (JS)\nfunction bfs(graph, start) {\n  const queue = [start], visited = new Set([start]), result = [];\n  while (queue.length > 0) {\n    const node = queue.shift();\n    result.push(node);\n    for (let neighbor of graph[node]) {\n      if (!visited.has(neighbor)) {\n        visited.add(neighbor);\n        queue.push(neighbor);\n      }\n    }\n  }\n  return result;\n}\nconst graph = {A: ['B', 'C'], B: ['D'], C: ['E'], D: [], E: []};\nconsole.log("BFS node order:", bfs(graph, 'A'));`
+      }
+    };
+    
+    snippetSelect.addEventListener('change', () => {
+      const codeType = snippetSelect.value;
+      const lang = langSelect.value;
+      if (snippets[codeType]) {
+        editor.value = snippets[codeType][lang] || snippets[codeType]['javascript'];
+        if (typeof showPremiumModal === 'function') {
+          showPremiumModal('SNIPPET LOADED', `Loaded algorithm template: <strong>${codeType.toUpperCase()}</strong>.`, 'Acknowledge');
+        }
+      }
+    });
+  }
+});
