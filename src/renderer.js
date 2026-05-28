@@ -1865,3 +1865,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================
+// THEME SWITCHER CONTROLLER
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const themeSelect = document.getElementById('appVisualTheme');
+  if (themeSelect) {
+    const savedTheme = localStorage.getItem('ghost_visual_theme') || 'obsidian';
+    themeSelect.value = savedTheme;
+    applyAppTheme(savedTheme);
+    
+    themeSelect.addEventListener('change', () => {
+      const theme = themeSelect.value;
+      localStorage.setItem('ghost_visual_theme', theme);
+      applyAppTheme(theme);
+    });
+  }
+});
+
+function applyAppTheme(theme) {
+  const r = document.documentElement;
+  if (theme === 'cyberpunk') {
+    r.style.setProperty('--bg-base', '#0f051d');
+    r.style.setProperty('--bg-glass', 'hsla(300, 45%, 4%, 0.9)');
+    r.style.setProperty('--accent-purple', '#d946ef');
+    r.style.setProperty('--accent-violet', '#f472b6');
+    r.style.setProperty('--accent-cyan', '#06b6d4');
+    r.style.setProperty('--border', 'rgba(217, 70, 239, 0.4)');
+  } else if (theme === 'camouflage') {
+    r.style.setProperty('--bg-base', '#1a202c');
+    r.style.setProperty('--bg-glass', 'rgba(30, 41, 59, 0.95)');
+    r.style.setProperty('--accent-purple', '#4a5568');
+    r.style.setProperty('--accent-violet', '#718096');
+    r.style.setProperty('--accent-cyan', '#4a5568');
+    r.style.setProperty('--border', 'rgba(255, 255, 255, 0.1)');
+  } else {
+    r.style.setProperty('--bg-base', '#03001e');
+    r.style.setProperty('--bg-glass', 'hsla(240, 30%, 6%, 0.85)');
+    r.style.setProperty('--accent-purple', '#8b5cf6');
+    r.style.setProperty('--accent-violet', '#c084fc');
+    r.style.setProperty('--accent-cyan', '#22d3ee');
+    r.style.setProperty('--border', 'hsla(240, 20%, 30%, 0.35)');
+  }
+}
