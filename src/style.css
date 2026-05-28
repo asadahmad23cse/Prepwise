@@ -2091,3 +2091,29 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 }
 
 
+
+/* Resume Drag & Drop Zone */
+.resume-dropzone {
+  border: 2px dashed rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 12px;
+  cursor: none;
+  transition: all 0.25s ease;
+}
+.resume-dropzone:hover, .resume-dropzone.dragover {
+  border-color: var(--accent-cyan);
+  background: rgba(34, 211, 238, 0.08);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+}
+.dropzone-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 6px;
+}
+.resume-dropzone p {
+  font-size: 11px;
+  color: var(--text-secondary);
+}

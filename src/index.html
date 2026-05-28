@@ -131,6 +131,11 @@
         <div class="section-card">
           <h3>🎯 ATS Resume Optimization</h3>
           <p class="section-desc">Paste your resume bullets to optimize them for ATS scanners and AI interviewers.</p>
+          <div class="resume-dropzone" id="resumeDropzone">
+            <span class="dropzone-icon">📁</span>
+            <p>Drag & drop resume file (.txt, .md) or click to upload</p>
+            <input type="file" id="resumeFileInput" style="display:none;" accept=".txt,.md" />
+          </div>
           <textarea class="resume-textarea" id="resumeBulletsInput" placeholder="Paste resume bullet points here... (e.g., Developed backend microservices using Node.js and AWS...)"></textarea>
           <div class="resume-actions">
             <button class="btn-primary" onclick="runAtsAnalysis()">Optimize for ATS</button>
