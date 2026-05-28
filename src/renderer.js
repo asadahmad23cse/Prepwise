@@ -698,6 +698,9 @@ function appendMessage(role, text) {
   msg.appendChild(avatar); msg.appendChild(content);
   chatMessages.appendChild(msg);
   msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  if (role === 'assistant') {
+    if (typeof speakText === 'function') speakText(text);
+  }
 }
 
 function showTyping() {
@@ -1666,3 +1669,49 @@ function drawWaveform(analyser) {
 }
 
 
+
+// ==========================================
+// STEALTH AUDIO GUIDE (EARBUD MODE TTS)
+// ==========================================
+let earbudModeEnabled = false;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const earbudToggle = document.getElementById('earbudModeToggle');
+  const earbudDot = document.getElementById('earbud-status-dot');
+  
+  if (earbudToggle) {
+    const saved = localStorage.getItem('ghost_earbud_mode') === 'true';
+    earbudToggle.checked = saved;
+    earbudModeEnabled = saved;
+    if (earbudDot) {
+      if (saved) earbudDot.classList.add('active');
+      else earbudDot.classList.remove('active');
+    }
+    
+    earbudToggle.addEventListener('change', () => {
+      earbudModeEnabled = earbudToggle.checked;
+      localStorage.setItem('ghost_earbud_mode', earbudModeEnabled);
+      if (earbudDot) {
+        if (earbudModeEnabled) earbudDot.classList.add('active');
+        else earbudDot.classList.remove('active');
+      }
+      if (earbudModeEnabled) {
+        speakText("Earbud stealth audio guide activated.");
+      }
+    });
+  }
+});
+
+function speakText(text) {
+  if (!earbudModeEnabled || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  
+  let cleanText = text.replace(/```[\s\S]*?```/g, ' [code block skipped] ');
+  cleanText = cleanText.replace(/`[^`]+`/g, ' [code snippet] ');
+  cleanText = cleanText.replace(/[*#_\-~`\n]/g, ' '); 
+  
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+  utterance.rate = 1.1;
+  utterance.pitch = 0.85;
+  window.speechSynthesis.speak(utterance);
+}
