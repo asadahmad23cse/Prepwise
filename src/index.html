@@ -311,6 +311,14 @@
                   <li>SATA disk seek: 10,000,000 ns</li>
                   <li>Packet round trip CA to Netherlands: 150,000,000 ns</li>
                 </ul>
+                <strong style="display:block; margin-top:14px; margin-bottom: 6px; font-size:11px;">Interactive Architecture Templates:</strong>
+                <div style="display:flex; gap:8px; margin-bottom:10px;">
+                  <button class="pill-btn" onclick="renderSystemDesignDiagram('tinyurl')">🔗 TinyURL System</button>
+                  <button class="pill-btn" onclick="renderSystemDesignDiagram('uber')">🚗 Uber Live Tracking</button>
+                </div>
+                <div id="mermaidSystemDesignBox" class="hidden" style="background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:6px; padding:12px; margin-top:10px;">
+                  <div id="mermaidSystemDesignRenderer"></div>
+                </div>
               </div>
             </div>
 

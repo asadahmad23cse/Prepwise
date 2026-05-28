@@ -1715,3 +1715,39 @@ function speakText(text) {
   utterance.pitch = 0.85;
   window.speechSynthesis.speak(utterance);
 }
+
+// ==========================================
+// INTERACTIVE MERMAID DIAGRAM RENDERER
+// ==========================================
+window.renderSystemDesignDiagram = function(type) {
+  const box = document.getElementById('mermaidSystemDesignBox');
+  const renderer = document.getElementById('mermaidSystemDesignRenderer');
+  if (!box || !renderer || typeof mermaid === 'undefined') return;
+  box.classList.remove('hidden');
+  renderer.innerHTML = '';
+  
+  let graphDefinition = '';
+  if (type === 'tinyurl') {
+    graphDefinition = `graph TD
+  Client[Client Browser] -->|POST Shorten URL| LB[Load Balancer]
+  LB --> Web[Web Server Cluster]
+  Web -->|Hash String| Cache[Redis Cache]
+  Web -->|DB Write| DB[(PostgreSQL Database)]
+  DB -->|Read Repl| Read[(Replica DB)]`;
+  } else if (type === 'uber') {
+    graphDefinition = `graph LR
+  Rider[Rider App] -->|Request Ride| Gateway[API Gateway]
+  Gateway --> Matches[Matching Service]
+  Driver[Driver App] -->|Publish Location| Kafka{Apache Kafka}
+  Kafka --> Tracker[Real-time Location Tracker]
+  Tracker --> Matches`;
+  }
+  
+  try {
+    renderer.innerHTML = `<div class="mermaid">${graphDefinition}</div>`;
+    mermaid.init(undefined, renderer.querySelectorAll('.mermaid'));
+  } catch (e) {
+    console.error('Mermaid render error:', e);
+    renderer.innerHTML = `<p style="color:var(--accent-pink);">Failed to render Mermaid diagram.</p>`;
+  }
+};
