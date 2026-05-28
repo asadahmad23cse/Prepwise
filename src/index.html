@@ -396,6 +396,13 @@
             <label class="setting-label">Window Opacity</label>
             <div class="slider-row"><input type="range" id="opacitySlider" min="20" max="100" value="95" class="slider"/><span id="opacityValue" class="slider-val">95%</span></div>
           </div>
+          <div class="setting-row">
+            <label class="setting-label">Screen Capture Region</label>
+            <select id="screenCaptureRegion" class="select-input">
+              <option value="fullscreen">Full Primary Display</option>
+              <option value="activewindow">Focused Active Window</option>
+            </select>
+          </div>
           <div class="setting-row"><label class="setting-label">Always on Top</label><label class="toggle"><input type="checkbox" id="alwaysOnTop" checked/><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><label class="setting-label">Click-Through Cloak</label><label class="toggle"><input type="checkbox" id="clickThrough"/><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><label class="setting-label">Custom Software Cursor</label><label class="toggle"><input type="checkbox" id="customCursor" checked/><span class="toggle-slider"></span></label></div>

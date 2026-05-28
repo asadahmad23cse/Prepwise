@@ -1909,3 +1909,17 @@ function applyAppTheme(theme) {
     r.style.setProperty('--border', 'hsla(240, 20%, 30%, 0.35)');
   }
 }
+
+// ==========================================
+// REGION OF INTEREST SCAN CONTEXT
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const roiSelect = document.getElementById('screenCaptureRegion');
+  if (roiSelect) {
+    const saved = localStorage.getItem('ghost_roi_scan') || 'fullscreen';
+    roiSelect.value = saved;
+    roiSelect.addEventListener('change', () => {
+      localStorage.setItem('ghost_roi_scan', roiSelect.value);
+    });
+  }
+});
