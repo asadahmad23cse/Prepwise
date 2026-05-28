@@ -1837,3 +1837,20 @@ window.loadBehavioralQuestion = function(questionText) {
     }
   }
 };
+
+// ==========================================
+// HOTKEY CONFIGURATION PERSISTENCE
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const scanHotkeyInput = document.getElementById('scanHotkeyPrefix');
+  if (scanHotkeyInput) {
+    const saved = localStorage.getItem('ghost_scan_hotkey') || 'Ctrl+Shift+A';
+    scanHotkeyInput.value = saved;
+    scanHotkeyInput.addEventListener('change', () => {
+      localStorage.setItem('ghost_scan_hotkey', scanHotkeyInput.value);
+      if (typeof showPremiumModal === 'function') {
+        showPremiumModal('HOTKEY UPDATED', `Scan screen hotkey binder queued as <strong>${scanHotkeyInput.value}</strong>. Restart application to rebind main global listeners.`, 'Acknowledge');
+      }
+    });
+  }
+});
