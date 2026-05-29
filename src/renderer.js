@@ -1023,6 +1023,22 @@ const SANDBOX_STARTER_TEMPLATES = {
   rust: `// Rust Starter Code\nfn main() {\n    println!("Welcome to Rust Sandbox!");\n}\n`
 };
 
+
+  const sandboxLangSelect = document.getElementById('sandboxLanguage');
+  const sandboxEditor = document.getElementById('sandboxEditor');
+  if (sandboxLangSelect && sandboxEditor) {
+    sandboxLangSelect.addEventListener('change', () => {
+      const lang = sandboxLangSelect.value;
+      if (sandboxEditor.value.trim() === "" || sandboxEditor.value.includes("Starter Code")) {
+        sandboxEditor.value = SANDBOX_STARTER_TEMPLATES[lang] || "";
+      }
+    });
+    // Set initial template
+    if (sandboxEditor.value.trim() === "") {
+      sandboxEditor.value = SANDBOX_STARTER_TEMPLATES.javascript;
+    }
+  }
+
 // --- TAB NAVIGATION & PREMIUM INTEGRATION ---
 document.addEventListener('DOMContentLoaded', () => {
   const navBtns = document.querySelectorAll('.nav-btn');
