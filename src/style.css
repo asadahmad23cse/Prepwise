@@ -2237,3 +2237,6 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .focus-mode-active .title-bar {
   border-bottom: none;
 }
+
+/* Layout tweak for compact mode chat container */
+.compact-chat .message { margin-bottom: 8px; padding: 4px 8px; }
