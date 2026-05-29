@@ -1185,6 +1185,26 @@ updateSystemPrompt();
     startStopwatch(); // Auto start
   }
 
+
+  // Focus Mode Trigger (Ctrl+Shift+F)
+  let isFocusMode = false;
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'F') {
+      e.preventDefault();
+      isFocusMode = !isFocusMode;
+      const appContainer = document.getElementById('app');
+      if (appContainer) {
+        if (isFocusMode) {
+          appContainer.classList.add('focus-mode-active');
+          appendMessage('assistant', 'Focus Mode enabled. Navigation bar and status bar hidden.');
+        } else {
+          appContainer.classList.remove('focus-mode-active');
+          appendMessage('assistant', 'Focus Mode disabled.');
+        }
+      }
+    }
+  });
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
