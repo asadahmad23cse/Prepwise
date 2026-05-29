@@ -1148,6 +1148,43 @@ updateSystemPrompt();
     });
   }
 
+
+  // Stopwatch Session Timer Logic
+  let stopwatchSec = 0;
+  let stopwatchInterval = null;
+  const timerDisplay = document.getElementById('sessionTimerDisplay');
+  const timerWidget = document.getElementById('sessionTimerWidget');
+
+  function updateStopwatch() {
+    stopwatchSec++;
+    const hrs = Math.floor(stopwatchSec / 3600).toString().padStart(2, '0');
+    const mins = Math.floor((stopwatchSec % 3600) / 60).toString().padStart(2, '0');
+    const secs = (stopwatchSec % 60).toString().padStart(2, '0');
+    if (timerDisplay) timerDisplay.textContent = `${hrs}:${mins}:${secs}`;
+  }
+
+  function startStopwatch() {
+    if (!stopwatchInterval) {
+      stopwatchInterval = setInterval(updateStopwatch, 1000);
+    }
+  }
+
+  function toggleStopwatch() {
+    if (stopwatchInterval) {
+      clearInterval(stopwatchInterval);
+      stopwatchInterval = null;
+      if (timerDisplay) timerDisplay.style.color = '#ef4444'; // Red for paused
+    } else {
+      if (timerDisplay) timerDisplay.style.color = 'var(--accent-cyan)';
+      startStopwatch();
+    }
+  }
+
+  if (timerWidget) {
+    timerWidget.addEventListener('click', toggleStopwatch);
+    startStopwatch(); // Auto start
+  }
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
