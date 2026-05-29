@@ -73,6 +73,13 @@
   --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.6);
   --glow-purple: 0 0 30px hsla(260, 95%, 68%, 0.25);
   --glow-cyan: 0 0 30px hsla(189, 95%, 53%, 0.2);
+
+  /* Premium v2.5.0 Transition Tokens */
+  --glow-cyan-pulse: 0 0 15px rgba(34, 211, 238, 0.4);
+  --font-size-compact: 11.5px;
+  --font-size-normal: 13.5px;
+  --font-size-comfortable: 15px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html, body {
