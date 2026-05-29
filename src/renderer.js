@@ -25,6 +25,18 @@ var SYSTEM_MESSAGE = {};
 updateSystemPrompt();
 updateStatusBar();
 
+  let customPromptAddition = localStorage.getItem('ghost_custom_prompt') || '';
+  const customPromptEl = document.getElementById('customPromptAddition');
+  if (customPromptEl) {
+    customPromptEl.value = customPromptAddition;
+    customPromptEl.addEventListener('input', () => {
+      customPromptAddition = customPromptEl.value;
+      localStorage.setItem('ghost_custom_prompt', customPromptAddition);
+      updateSystemPrompt();
+    });
+  }
+
+
 function updateStatusBar() {
   const langBadge = document.getElementById('current-lang-badge');
   if (langBadge) langBadge.textContent = targetLanguage;
@@ -1025,7 +1037,7 @@ CRITICAL PROTOCOLS:
   const interviewContext = typeof getInterviewContextPrompt === 'function' ? getInterviewContextPrompt() : '';
   const resumeContext = typeof getResumeContext === 'function' ? getResumeContext() : '';
 
-  SYSTEM_PROMPT = [basePrompt, interviewContext, resumeContext].filter(Boolean).join('\n\n');
+  SYSTEM_PROMPT = [basePrompt, interviewContext, resumeContext, customPromptAddition].filter(Boolean).join('\n\n');
   SYSTEM_MESSAGE = { role: 'user', parts: [{ text: SYSTEM_PROMPT }] };
 };
 updateSystemPrompt();
