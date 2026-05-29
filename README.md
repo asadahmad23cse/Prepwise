@@ -22,3 +22,9 @@ Premium Stealth AI Interview Coach & Live Assistance Application designed for hi
 - **🤝 Multi-word Search in Cheat Sheets**: Intelligent keyword split search.
 - **📅 Windows Disguise Calendar Widget**: Hyper-realistic update calendar overlay.
 - **🛡️ Focus Mode Hotkey (Ctrl+Shift+F)**: Instantly collapse sidebars and headers for ultimate clean view.
+
+
+## 🛠️ Getting Started
+1. Launch the application using `npm start`.
+2. Configure your Gemini API key in Settings.
+3. Choose your desired mode and start practicing!
