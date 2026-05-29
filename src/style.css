@@ -2222,3 +2222,7 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   border-color: var(--accent-cyan) !important;
   box-shadow: var(--glow-cyan-pulse);
 }
+
+.disguise-card strong {
+  color: #1f2937;
+}
