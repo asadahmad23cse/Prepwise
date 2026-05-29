@@ -1112,6 +1112,25 @@ updateSystemPrompt();
     });
   }
 
+
+  const dldBtn = document.getElementById('downloadTranscriptBtn');
+  if (dldBtn) {
+    dldBtn.addEventListener('click', () => {
+      let transcriptText = "# Prepwise Assistant - Chat Transcript\n\n";
+      const messages = document.querySelectorAll('.message');
+      messages.forEach(msg => {
+        const role = msg.classList.contains('user-msg') ? "Candidate" : "Prepwise Assistant";
+        const content = msg.querySelector('.msg-content').innerText;
+        transcriptText += `### ${role}\n${content}\n\n---\n\n`;
+      });
+      const blob = new Blob([transcriptText], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Prepwise_Transcript_' + Date.now() + '.md';
+      a.click();
+    });
+  }
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
