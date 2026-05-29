@@ -1093,6 +1093,25 @@ updateSystemPrompt();
     });
   }
 
+
+  // Enhanced Multi-word Search in Cheat Sheets
+  const cheatSearch = document.getElementById('cheatSheetSearch');
+  if (cheatSearch) {
+    cheatSearch.addEventListener('input', () => {
+      const queries = cheatSearch.value.toLowerCase().split(' ').filter(q => q.trim() !== '');
+      const items = document.querySelectorAll('.accordion-item');
+      items.forEach(item => {
+        const text = item.getAttribute('data-title').toLowerCase();
+        const matches = queries.every(q => text.includes(q));
+        if (matches || queries.length === 0) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  }
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
