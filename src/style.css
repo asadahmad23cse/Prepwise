@@ -2132,3 +2132,19 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
 .console-boolean { color: var(--accent-pink); }
 .console-string { color: var(--accent-green); }
 .console-key { color: var(--accent-purple); font-weight: 600; }
+
+/* ==========================================
+   Chat Text Density Styling Modifiers
+   ========================================== */
+.chat-area.compact .msg-content {
+  font-size: var(--font-size-compact);
+  padding: 6px 12px;
+}
+.chat-area.normal .msg-content {
+  font-size: var(--font-size-normal);
+  padding: 12px 18px;
+}
+.chat-area.comfortable .msg-content {
+  font-size: var(--font-size-comfortable);
+  padding: 16px 24px;
+}
