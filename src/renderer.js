@@ -1959,3 +1959,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+window.deleteSingleMessage = function(btn) {
+  const msgEl = btn.closest('.message');
+  if (msgEl) {
+    msgEl.style.opacity = '0';
+    msgEl.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      msgEl.remove();
+    }, 300);
+  }
+};
