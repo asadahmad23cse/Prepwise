@@ -349,3 +349,11 @@
 .company-selector .select-input:focus {
   border-color: var(--accent-purple);
 }
+
+.rating-stars span {
+  text-shadow: 0 0 5px rgba(251, 191, 36, 0.4);
+  transition: transform 0.2s ease;
+}
+.rating-stars span:hover {
+  transform: scale(1.2);
+}
