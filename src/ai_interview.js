@@ -153,3 +153,5 @@ function setTargetCompany(company) {
 
   if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
 }
+
+// TODO: Add support for custom mock interview templates loaded from file system
