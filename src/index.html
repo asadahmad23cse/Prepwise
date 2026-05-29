@@ -347,6 +347,28 @@
               </div>
             </div>
 
+            
+            <!-- Item 4: Database Comparison -->
+            <div class="accordion-item" data-title="database compare sql nosql sharding speed cap db transactional">
+              <div class="accordion-header">
+                <span>🗄️ Database Technology Tradeoffs</span>
+                <span class="accordion-arrow">▼</span>
+              </div>
+              <div class="accordion-content">
+                <table class="cheat-table">
+                  <thead>
+                    <tr><th>Type</th><th>Example</th><th>Pros</th><th>Cons</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Relational (SQL)</td><td>PostgreSQL</td><td>ACID, Complex Joins</td><td>Scaling Writes</td></tr>
+                    <tr><td>NoSQL Key-Val</td><td>Redis</td><td>Speed (Sub-ms)</td><td>No complex query</td></tr>
+                    <tr><td>NoSQL Document</td><td>MongoDB</td><td>Flexible Schema</td><td>No Joins / Multi-doc ACID</td></tr>
+                    <tr><td>NewSQL Distributed</td><td>CockroachDB</td><td>Global Scale + ACID</td><td>High latency</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <!-- Item 3: STAR Behavioral -->
             <div class="accordion-item" data-title="star behavioral method situation task action result lead optimized scaled indicators metrics">
               <div class="accordion-header">
