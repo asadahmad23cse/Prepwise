@@ -73,6 +73,13 @@ async function runAtsAnalysis() {
   const score = calculateResumeScore(text, keywords);
   scoreBox.classList.remove('hidden');
   animateScoreCircle(scoreCircle, score);
+
+  const starsContainer = document.getElementById('resumeRatingStars');
+  if (starsContainer) {
+    const starCount = Math.round(score / 20); // 1-5 stars
+    starsContainer.innerHTML = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
+  }
+
   keywordsList.innerHTML = keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('');
   feedbackBox.innerHTML = '✨ Analyzing bullets and calling Gemini for ATS optimization...';
   feedbackBox.className = 'resume-feedback-box info';
