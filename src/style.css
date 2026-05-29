@@ -2189,3 +2189,11 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   border-color: var(--accent-pink);
   box-shadow: 0 0 10px rgba(244,114,182,0.3);
 }
+
+.copy-code-btn.copied {
+  background: var(--accent-green) !important;
+  color: white !important;
+  border-color: var(--accent-green) !important;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+  transform: scale(1.05);
+}
