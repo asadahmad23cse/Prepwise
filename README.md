@@ -1,4 +1,4 @@
-# Prepwise Assistant v2.2.0 🚀
+# Prepwise Assistant v2.5.0 🚀
 
 Premium Stealth AI Interview Coach & Live Assistance Application designed for high-stakes technical interviews.
 
@@ -14,3 +14,11 @@ Premium Stealth AI Interview Coach & Live Assistance Application designed for hi
 - **📁 Drag-and-Drop Resume PDF/Text Parser**: Quick client-side file uploads to ATS.
 - **🎨 Interactive Sandbox Snippets**: One-click algorithm template loading.
 - **🌓 Tri-Theme Design System**: Obsidian, Cyberpunk Neon, and Camouflage.
+
+## ✨ Breathtaking Premium Features v2.5.0
+- **⏱️ Live Stopwatch Session Timer**: Session duration tracker embedded in the title bar.
+- **🔍 Sandbox Snippet Search**: Real-time filtering for code sandbox snippet loading.
+- **📁 File Export & Markdown Downloader**: Export ATS optimization and chat transcripts.
+- **🤝 Multi-word Search in Cheat Sheets**: Intelligent keyword split search.
+- **📅 Windows Disguise Calendar Widget**: Hyper-realistic update calendar overlay.
+- **🛡️ Focus Mode Hotkey (Ctrl+Shift+F)**: Instantly collapse sidebars and headers for ultimate clean view.
