@@ -2213,3 +2213,12 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   background: hsla(240, 20%, 15%, 0.5);
   color: var(--accent-cyan);
 }
+
+.session-timer-widget {
+  transition: var(--transition-smooth);
+}
+.session-timer-widget:hover {
+  background: rgba(34, 211, 238, 0.1) !important;
+  border-color: var(--accent-cyan) !important;
+  box-shadow: var(--glow-cyan-pulse);
+}
