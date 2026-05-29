@@ -1013,6 +1013,16 @@ if (document.readyState === 'loading') {
 }
 
 
+
+const SANDBOX_STARTER_TEMPLATES = {
+  javascript: `// JavaScript Starter Code\nconsole.log("Welcome to JavaScript Sandbox!");\n\nfunction solve() {\n  console.log("Solving algorithm...");\n}\nsolve();\n`,
+  python: `# Python Starter Code\nprint("Welcome to Python Sandbox!")\n\ndef solve():\n    print("Solving algorithm...")\n\nsolve()\n`,
+  cpp: `// C++ Starter Code\n#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Welcome to C++ Sandbox!" << endl;\n    return 0;\n}\n`,
+  go: `// Go Starter Code\npackage main\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Welcome to Go Sandbox!")\n}\n`,
+  java: `// Java Starter Code\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Welcome to Java Sandbox!");\n    }\n}\n`,
+  rust: `// Rust Starter Code\nfn main() {\n    println!("Welcome to Rust Sandbox!");\n}\n`
+};
+
 // --- TAB NAVIGATION & PREMIUM INTEGRATION ---
 document.addEventListener('DOMContentLoaded', () => {
   const navBtns = document.querySelectorAll('.nav-btn');
