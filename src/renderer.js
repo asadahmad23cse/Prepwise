@@ -490,13 +490,13 @@ function copyToClipboard(btn) {
   const container = btn.closest('.code-container');
   const code = container.querySelector('code').innerText;
   navigator.clipboard.writeText(code).then(() => {
-    const originalText = btn.textContent;
-    btn.textContent = 'Copied!';
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '✔ Copied!';
     btn.classList.add('copied');
     setTimeout(() => {
-      btn.textContent = originalText;
+      btn.innerHTML = originalText;
       btn.classList.remove('copied');
-    }, 2000);
+    }, 1500);
   });
 }
 
