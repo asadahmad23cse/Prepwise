@@ -616,6 +616,22 @@ async function scanScreen() {
 
 if (scanBtn) scanBtn.addEventListener('click', scanScreen);
 
+
+  // Chat Density Settings
+  const chatDensitySelect = document.getElementById('chatDensitySelect');
+  if (chatDensitySelect) {
+    const savedDensity = localStorage.getItem('ghost_chat_density') || 'normal';
+    chatDensitySelect.value = savedDensity;
+    const chatArea = document.getElementById('chatArea');
+    if (chatArea) chatArea.className = 'chat-area ' + savedDensity;
+
+    chatDensitySelect.addEventListener('change', () => {
+      const density = chatDensitySelect.value;
+      localStorage.setItem('ghost_chat_density', density);
+      if (chatArea) chatArea.className = 'chat-area ' + density;
+    });
+  }
+
 // Listen for Ctrl+Shift+S hotkey from main process
 if (window.electronAPI && window.electronAPI.onTriggerScan) {
   window.electronAPI.onTriggerScan(scanScreen);
