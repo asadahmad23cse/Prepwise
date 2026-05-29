@@ -1131,6 +1131,23 @@ updateSystemPrompt();
     });
   }
 
+
+  const expResumeBtn = document.getElementById('exportResumeBtn');
+  if (expResumeBtn) {
+    expResumeBtn.addEventListener('click', () => {
+      const input = document.getElementById('resumeBulletsInput');
+      if (input && input.value.trim() !== '') {
+        const blob = new Blob([input.value], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Prepwise_Resume_Bullets.txt';
+        a.click();
+      } else {
+        alert('Please enter or optimize resume bullets first.');
+      }
+    });
+  }
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
