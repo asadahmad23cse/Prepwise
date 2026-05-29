@@ -2167,3 +2167,25 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   color: var(--accent-pink);
   transform: scale(1.2);
 }
+
+.terminal-header {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  background: hsla(240, 30%, 4%, 0.8);
+}
+.clear-terminal-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: none;
+  font-size: 10px;
+  transition: var(--transition-smooth);
+}
+.clear-terminal-btn:hover {
+  background: var(--accent-pink);
+  color: white;
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 10px rgba(244,114,182,0.3);
+}
