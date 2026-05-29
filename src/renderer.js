@@ -2125,3 +2125,9 @@ window.deleteSingleMessage = function(btn) {
     }, 300);
   }
 };
+
+// Helper function to auto-scroll chat to bottom on new messages
+function scrollToBottom() {
+  const chatArea = document.getElementById("chatArea");
+  if (chatArea) chatArea.scrollTop = chatArea.scrollHeight;
+}
