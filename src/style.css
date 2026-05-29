@@ -2197,3 +2197,19 @@ textarea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2p
   box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
   transform: scale(1.05);
 }
+
+.cheat-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.cheat-table th, .cheat-table td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  text-align: left;
+}
+.cheat-table th {
+  background: hsla(240, 20%, 15%, 0.5);
+  color: var(--accent-cyan);
+}
