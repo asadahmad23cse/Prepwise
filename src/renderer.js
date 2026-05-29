@@ -1050,6 +1050,23 @@ CRITICAL PROTOCOLS:
 };
 updateSystemPrompt();
 
+
+  // Sandbox Snippet Search Logic
+  const snippetSearchInput = document.getElementById('sandboxSnippetSearch');
+  const snippetSelect = document.getElementById('sandboxSnippetSelect');
+  if (snippetSearchInput && snippetSelect) {
+    const originalOptions = Array.from(snippetSelect.options);
+    snippetSearchInput.addEventListener('input', () => {
+      const val = snippetSearchInput.value.toLowerCase();
+      snippetSelect.innerHTML = '';
+      originalOptions.forEach(opt => {
+        if (opt.text.toLowerCase().includes(val) || opt.value === "") {
+          snippetSelect.appendChild(opt.cloneNode(true));
+        }
+      });
+    });
+  }
+
 // Real-time latency simulation and status updates
 setInterval(() => {
   const latEl = document.getElementById('latency-val');
