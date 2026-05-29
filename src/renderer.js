@@ -718,6 +718,14 @@ function appendMessage(role, text) {
       .replace(/`([^`]+)`/g, '<code style="background:rgba(124,58,237,0.15);padding:1px 5px;border-radius:3px;font-size:11px;">$1</code>')
       .replace(/\n/g, '<br/>');
   }
+  
+    const isAssistant = role === 'assistant';
+    const deleteBtn = `<button class="delete-msg-btn" title="Delete message" onclick="deleteSingleMessage(this)">×</button>`;
+    contentHtml = `<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                      <div style="flex:1;">${contentHtml}</div>
+                      ${deleteBtn}
+                    </div>`;
+
   content.innerHTML = contentHtml;
   
   // Trigger Prism highlighting
