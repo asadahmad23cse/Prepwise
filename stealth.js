@@ -37,15 +37,21 @@ function loadNativeModules() {
 }
 
 function hwndFromBuffer(buf) {
+  if (typeof buf === 'number' || typeof buf === 'bigint') {
+    return buf;
+  }
   // Electron returns HWND as a Buffer — convert to BigInt pointer for koffi
   try {
-    if (process.arch === 'x64') {
-      return buf.readBigUInt64LE(0);
+    if (Buffer.isBuffer(buf)) {
+      if (process.arch === 'x64') {
+        return buf.readBigUInt64LE(0);
+      }
+      return buf.readUInt32LE(0);
     }
-    return buf.readUInt32LE(0);
   } catch {
     return null;
   }
+  return null;
 }
 
 function applyWindowStealth(hwndBuf) {

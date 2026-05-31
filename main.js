@@ -82,14 +82,12 @@ function applyStealthFeatures() {
 
   if (nativeLoaded) {
     const hwnd = mainWindow.getNativeWindowHandle();
-    // Convert Buffer to int32 (Windows HWND)
-    const hwndInt = hwnd.readInt32LE(0);
 
     // Apply WS_EX_TOOLWINDOW — hides from Alt+Tab
-    stealth.applyWindowStealth(hwndInt);
+    stealth.applyWindowStealth(hwnd);
 
     // Apply WDA_EXCLUDEFROMCAPTURE — invisible in screen share
-    stealth.applyScreenCaptureProtection(hwndInt);
+    stealth.applyScreenCaptureProtection(hwnd);
   } else {
     // Fallback: Electron's built-in content protection (already set above)
     console.log('[Stealth] Using Electron built-in content protection only');
