@@ -154,4 +154,27 @@ function setTargetCompany(company) {
   if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
 }
 
-// TODO: Add support for custom mock interview templates loaded from file system
+// Load custom mock interview templates from the filesystem
+function loadCustomTemplates(filePath) {
+  try {
+    const fs = require('fs');
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath, 'utf8');
+      const templates = JSON.parse(data);
+      Object.assign(COACH_MODES, templates);
+      console.log("[Interview Coach] Loaded custom templates:", Object.keys(templates));
+      // Refresh banner if current mode was updated
+      updateActiveModeBanner();
+      if (typeof updateSystemPrompt === 'function') updateSystemPrompt();
+      return true;
+    }
+  } catch (e) {
+    console.error("[Interview Coach] Failed to load custom templates:", e.message);
+  }
+  return false;
+}
+
+// Expose to window/global scope if running in renderer
+if (typeof window !== 'undefined') {
+  window.loadCustomTemplates = loadCustomTemplates;
+}
